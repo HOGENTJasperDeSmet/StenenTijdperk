@@ -256,7 +256,7 @@ public class Spel {
     }
 
     public void nieuweRonde() {
-        startSpeler = spelers.get(startSpeler.getSpelerNummer() + 1 % spelers.size());
+        startSpeler = spelers.get(startSpeler.getSpelerNummer() % spelers.size());
         for(Speler s : spelers){
             s.nieuweRonde();
         }

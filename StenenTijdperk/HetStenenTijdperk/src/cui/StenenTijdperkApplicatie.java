@@ -46,11 +46,10 @@ public class StenenTijdperkApplicatie {
                 
                 domeinController.startSpel(namen);
                
-                System.out.println(domeinController.geefSpelbord());
-
                 System.out.println("druk op enter om te beginnen");
                 System.in.read();
                 do{
+                    System.out.println(domeinController.geefSpelbord());
                     plaatsStamleden();
                     
                     System.out.println("Druk op enter om te beginnen met Acties uitvoeren");
@@ -279,6 +278,7 @@ public class StenenTijdperkApplicatie {
                     domeinController.voedStamledenSpelerAanZet(2);
                 }
             }
+        domeinController.volgendeSpeler();
         }
     }
     
