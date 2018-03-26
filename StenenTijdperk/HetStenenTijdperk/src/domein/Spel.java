@@ -309,6 +309,24 @@ public class Spel {
         return winnaar.getNaam();
     }
 
+    public String toonEindscore() {
+        String Eindscore = String.format("%-4s%-10s%-4s%n","Nr.","Spelers","Score");
+        for(Speler s : spelers){
+            Eindscore += String.format("%-4s%-10s%-4s%n",s.getSpelerNummer(),s.getNaam(),s.getScore());
+        }
+        return Eindscore;
+    }
+
+    public void berekenEindscore() {
+        for(Speler s : spelers){
+            s.BerekenEindscore();
+        }
+    }
+
+    public String geefSpelerNaamAanZet() {
+        return spelerAanZet.getNaam();
+    }
+
     
 
 

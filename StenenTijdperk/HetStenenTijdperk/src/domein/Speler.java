@@ -15,7 +15,7 @@ public class Speler {
 
     private final int spelerNummer;
     private int voedselProductie,
-            aantalVoedsel,
+            aantalVoedsel = 12,
             aantalGoud,
             aantalSteen,
             aantalLeem,
@@ -36,7 +36,6 @@ public class Speler {
         gereedschappen[0] = new Gereedschapsfiche();
         gereedschappen[1] = new Gereedschapsfiche();
         gereedschappen[2] = new Gereedschapsfiche();
-        aantalVoedsel = 12;
     }
     
     @Override
@@ -271,6 +270,10 @@ public class Speler {
         aantalLeem -= grondstoffen[1];
         aantalSteen -= grondstoffen[2];
         aantalGoud -= grondstoffen[3];
+    }
+
+    public void BerekenEindscore() {
+        score += aantalHout + aantalGoud + aantalLeem + aantalSteen;
     }
 
 

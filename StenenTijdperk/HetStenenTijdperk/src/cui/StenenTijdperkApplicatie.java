@@ -45,7 +45,7 @@ public class StenenTijdperkApplicatie {
                 }
                 
                 domeinController.startSpel(namen);
-               
+                
                 System.out.println("druk op enter om te beginnen");
                 System.in.read();
                 do{
@@ -63,13 +63,14 @@ public class StenenTijdperkApplicatie {
                     voedStamleden();
                     
                     ronde++;
-                    System.out.printf("Druk op enter om aan ronde %d te beginnen%n",ronde);
+                    System.out.printf("%nDruk op enter om aan ronde %d te beginnen%n",ronde);
                     System.in.read();
                     
                     domeinController.nieuweRonde();
                     
                 }while(!domeinController.eindeSpel());
                 System.out.println("Einde spel bereikt");
+                domeinController.berekenEindscore();
                 System.out.printf("%n%s%n",domeinController.toonEindscore());
                 System.out.printf("De winnaar is %s%n",domeinController.bepaalWinnaar());
                 break;
@@ -199,7 +200,7 @@ public class StenenTijdperkApplicatie {
                 domeinController.voedStamledenSpelerAanZet();
             } else {
                 if(domeinController.heeftGenoegGrondstoffenSpelerAanZet()){
-                    System.out.println("Je hebt niet genoeg voedsel, Wat wil je doen");
+                    System.out.printf("%s je hebt niet genoeg voedsel, Wat wil je doen%n",domeinController.geefSpelerNaamAanZet());
                     System.out.println("1. Betaal met grondsoffen");
                     System.out.println("2. Score min 10");
                     System.out.print("Typ je keuze: ");
@@ -216,11 +217,13 @@ public class StenenTijdperkApplicatie {
                                     + "Leem: %d%n"
                                     + "Steen: %d%n"
                                     + "Goud: %d%n",grondstoffenSpelerAanZet[0],grondstoffenSpelerAanZet[1],grondstoffenSpelerAanZet[2],grondstoffenSpelerAanZet[3]);
-                            System.out.println("Welke grondstoffen wil je gebruiken?");
+                            
                             do{
-                                switch(input.next().toLowerCase()){
+                                System.out.print("Welke grondstoffen wil je gebruiken?: ");
+                                String grondstof = input.next().toLowerCase();
+                                switch(grondstof){
                                     case "hout":
-                                        System.out.println("Hoeveel hout wil je geven");
+                                        System.out.print("Hoeveel hout wil je geven: ");
                                         aantal = input.nextInt();
                                         if(grondstoffenSpelerAanZet[0] >= aantal){
                                             grondstoffen[0] += aantal;
@@ -230,7 +233,7 @@ public class StenenTijdperkApplicatie {
                                         }
                                         break;
                                     case "leem":
-                                        System.out.println("Hoeveel leem wil je geven");
+                                        System.out.print("Hoeveel leem wil je geven: ");
                                         aantal = input.nextInt();
                                         if(grondstoffenSpelerAanZet[1] >= aantal){
                                             grondstoffen[1] += aantal;
@@ -240,7 +243,7 @@ public class StenenTijdperkApplicatie {
                                         }
                                         break;
                                     case "steen":
-                                        System.out.println("Hoeveel steen wil je geven");
+                                        System.out.print("Hoeveel steen wil je geven: ");
                                         aantal = input.nextInt();
                                         if(grondstoffenSpelerAanZet[2] >= aantal){
                                             grondstoffen[2] += aantal;
@@ -250,7 +253,7 @@ public class StenenTijdperkApplicatie {
                                         }
                                         break;
                                     case "goud":
-                                        System.out.println("Hoeveel goud wil je geven");
+                                        System.out.print("Hoeveel goud wil je geven: ");
                                         aantal = input.nextInt();
                                         if(grondstoffenSpelerAanZet[1] >= aantal){
                                             grondstoffen[1] += aantal;
@@ -259,8 +262,9 @@ public class StenenTijdperkApplicatie {
                                             System.out.println("Je hebt niet zoveel goud");
                                         }
                                         break;
+                                        
                                 }
-                            }while(totaalGrondstoffen > domeinController.nodigVoedselSpelerAanZet());
+                            }while(totaalGrondstoffen < domeinController.nodigVoedselSpelerAanZet());
                             domeinController.voedStamledenSpelerAanZet(grondstoffen);
                             flagVoedselFout = false;
                             break;
@@ -274,8 +278,8 @@ public class StenenTijdperkApplicatie {
                         }
                     }while(flagVoedselFout);
                 }else{
-                    System.out.printf("Je hebt niet genoeg voedsel of grondstoffen,%n"
-                            + "er worden automatisch 10 punten van je score afgetrokken%n");
+                    System.out.printf("%n%s je hebt niet genoeg voedsel of grondstoffen,%n"
+                            + "er worden automatisch 10 punten van je score afgetrokken%n", domeinController.geefSpelerNaamAanZet());
                     domeinController.voedStamledenSpelerAanZet(2);
                 }
             }

@@ -136,4 +136,16 @@ public class DomeinController {
     public String bepaalWinnaar() {
         return spel.bepaalWinnaar();
     }
+
+    public String toonEindscore() {
+        return spel.toonEindscore();
+    }
+
+    public void berekenEindscore() {
+        spel.berekenEindscore();
+    }
+
+    public String geefSpelerNaamAanZet() {
+        return spel.geefSpelerNaamAanZet();
+    }
 }
