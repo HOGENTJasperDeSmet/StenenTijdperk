@@ -70,7 +70,8 @@ public class StenenTijdperkApplicatie {
                     
                 }while(!domeinController.eindeSpel());
                 System.out.println("Einde spel bereikt");
-                System.out.printf("%nDe winnaar is %s%n",domeinController.bepaalWinnaar());
+                System.out.printf("%n%s%n",domeinController.toonEindscore());
+                System.out.printf("De winnaar is %s%n",domeinController.bepaalWinnaar());
                 break;
             default:
                 System.out.println("Dit is geen geldige input");
