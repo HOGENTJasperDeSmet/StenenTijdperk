@@ -9,7 +9,7 @@
         </group>
         <group name="HetStenenTijdperk">
             <file>file:/C:/Users/jasperdesmet/Documents/GitHub/StenenTijdperk/StenenTijdperk/HetStenenTijdperk/src/cui/StenenTijdperkApplicatie.java</file>
-            <file>file:/C:/Users/jasperdesmet/Documents/GitHub/StenenTijdperk/StenenTijdperk/HetStenenTijdperk/src/StartUp.java</file>
+            <file>file:/C:/Users/jasperdesmet/Documents/GitHub/StenenTijdperk/StenenTijdperk/HetStenenTijdperk/src/domein/DomeinController.java</file>
             <file>file:/C:/Users/jasperdesmet/Documents/GitHub/StenenTijdperk/StenenTijdperk/HetStenenTijdperk/src/domein/Spel.java</file>
             <file>file:/C:/Users/jasperdesmet/Documents/GitHub/StenenTijdperk/StenenTijdperk/HetStenenTijdperk/src/domein/Speler.java</file>
         </group>

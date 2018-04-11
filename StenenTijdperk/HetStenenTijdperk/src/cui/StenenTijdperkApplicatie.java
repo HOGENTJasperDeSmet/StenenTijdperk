@@ -182,8 +182,9 @@ public class StenenTijdperkApplicatie {
                                         flagExtraGereedschap = false;
                                     }
                                 } while (!"ja".equals(invoer) && !"neen".equals(invoer));
+                            } else {
+                                 flagExtraGereedschap = false;
                             }
-
                         } while (flagExtraGereedschap);
 
                     }
