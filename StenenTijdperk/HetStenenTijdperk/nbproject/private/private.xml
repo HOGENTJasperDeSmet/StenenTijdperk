@@ -16,7 +16,10 @@
         <group name="StenenTijdperk">
             <file>file:/C:/Users/Jasper/Documents/GitHub/StenenTijdperk/StenenTijdperk/HetStenenTijdperk/src/gui/StartScherm.java</file>
             <file>file:/C:/Users/Jasper/Documents/GitHub/StenenTijdperk/StenenTijdperk/HetStenenTijdperk/src/gui/CharacterSelect.java</file>
-            <file>file:/C:/Users/Jasper/Documents/GitHub/StenenTijdperk/StenenTijdperk/HetStenenTijdperk/src/HetStenenTijdperkFX.java</file>
+            <file>file:/C:/Users/Jasper/Documents/GitHub/StenenTijdperk/StenenTijdperk/HetStenenTijdperk/src/domein/Grondstof.java</file>
+            <file>file:/C:/Users/Jasper/Documents/GitHub/StenenTijdperk/StenenTijdperk/HetStenenTijdperk/src/domein/Hut.java</file>
+            <file>file:/C:/Users/Jasper/Documents/GitHub/StenenTijdperk/StenenTijdperk/HetStenenTijdperk/src/domein/Grondstofproductie.java</file>
+            <file>file:/C:/Users/Jasper/Documents/GitHub/StenenTijdperk/StenenTijdperk/HetStenenTijdperk/src/domein/Jacht.java</file>
         </group>
     </open-files>
 </project-private>
