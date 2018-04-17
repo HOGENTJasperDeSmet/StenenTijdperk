@@ -55,7 +55,7 @@ public class StartScherm extends StackPane {
         MediaPlayer mainMenuPlayer = new MediaPlayer(mainMenuSong);
         mainMenuPlayer.setAutoPlay(true);
         mainMenuPlayer.setCycleCount(MediaPlayer.INDEFINITE);
-        mainMenuPlayer.setVolume(0.02);
+        mainMenuPlayer.setVolume(1);
         //animations
         Path path = new Path();
         path.getElements().add(new MoveTo(0, 270));
@@ -120,7 +120,7 @@ public class StartScherm extends StackPane {
         String bip = "src/assets/bmm.wav";
         Media hit = new Media(Paths.get(bip).toUri().toString());
         MediaPlayer mediaPlayer = new MediaPlayer(hit);
-        mediaPlayer.setVolume(0.05);
+        mediaPlayer.setVolume(1);
         
         
         //start knop
