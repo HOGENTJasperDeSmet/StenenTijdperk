@@ -13,13 +13,6 @@
             <file>file:/C:/Users/jasperdesmet/Documents/GitHub/StenenTijdperk/StenenTijdperk/HetStenenTijdperk/src/domein/Spel.java</file>
             <file>file:/C:/Users/jasperdesmet/Documents/GitHub/StenenTijdperk/StenenTijdperk/HetStenenTijdperk/src/domein/Speler.java</file>
         </group>
-        <group name="StenenTijdperk">
-            <file>file:/C:/Users/Jasper/Documents/GitHub/StenenTijdperk/StenenTijdperk/HetStenenTijdperk/src/gui/StartScherm.java</file>
-            <file>file:/C:/Users/Jasper/Documents/GitHub/StenenTijdperk/StenenTijdperk/HetStenenTijdperk/src/gui/CharacterSelect.java</file>
-            <file>file:/C:/Users/Jasper/Documents/GitHub/StenenTijdperk/StenenTijdperk/HetStenenTijdperk/src/domein/Grondstof.java</file>
-            <file>file:/C:/Users/Jasper/Documents/GitHub/StenenTijdperk/StenenTijdperk/HetStenenTijdperk/src/domein/Hut.java</file>
-            <file>file:/C:/Users/Jasper/Documents/GitHub/StenenTijdperk/StenenTijdperk/HetStenenTijdperk/src/domein/Grondstofproductie.java</file>
-            <file>file:/C:/Users/Jasper/Documents/GitHub/StenenTijdperk/StenenTijdperk/HetStenenTijdperk/src/domein/Jacht.java</file>
-        </group>
+        <group name="StenenTijdperk"/>
     </open-files>
 </project-private>

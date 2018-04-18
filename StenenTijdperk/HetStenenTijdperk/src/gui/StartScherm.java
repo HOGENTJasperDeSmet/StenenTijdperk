@@ -6,8 +6,10 @@
 package gui;
 
 import java.nio.file.Paths;
+import javafx.animation.Animation;
 import javafx.animation.FadeTransition;
 import javafx.animation.Interpolator;
+import javafx.animation.KeyFrame;
 import javafx.animation.PathTransition;
 import javafx.animation.Timeline;
 import javafx.animation.TranslateTransition;
@@ -42,10 +44,11 @@ public class StartScherm extends StackPane {
     private ImageView backgroundImage = new ImageView(new Image(getClass().getResourceAsStream("/assets/backdropSky.gif")));
     private ImageView korinTower = new ImageView(new Image(getClass().getResourceAsStream("/assets/korinTower.png")));
     private Image textSprites = new Image(getClass().getResourceAsStream("/assets/text.png"));
+    private Image gokuHelicopter = new Image(getClass().getResourceAsStream("/assets/gokuHelicopter1.png"));
     private ImageView sluiten, logo, start, hervat, score;
     private Stage primaryStage;
     private BorderPane bp = new BorderPane();
-    
+    private CharacterSelect cs = new CharacterSelect();
     public StartScherm(Stage primaryStage) {
         buildGui();
         this.primaryStage = primaryStage;
@@ -57,7 +60,7 @@ public class StartScherm extends StackPane {
         MediaPlayer mainMenuPlayer = new MediaPlayer(mainMenuSong);
         mainMenuPlayer.setAutoPlay(true);
         mainMenuPlayer.setCycleCount(MediaPlayer.INDEFINITE);
-        mainMenuPlayer.setVolume(1);
+        mainMenuPlayer.setVolume(0.05);
         //animations
         Path path = new Path();
         path.getElements().add(new MoveTo(0, 270));
@@ -99,12 +102,36 @@ public class StartScherm extends StackPane {
         menubar.setAlignment(Pos.TOP_RIGHT);
         menubar.setPadding(new Insets(20, 20, 20, 20));
         menubar.getChildren().addAll(sluiten);
-
+        //gokuHelicopter
+        final ImageView gokuHelicopterIv = new ImageView(gokuHelicopter);
+        gokuHelicopterIv.setViewport(new Rectangle2D(0,0,102,80));
+        final Animation gokuHelicopterAnimation = new SpriteAnimation(
+                gokuHelicopterIv,
+                Duration.millis(300),
+                4, 4,
+                0, 0,
+                102, 80
+        );
+        gokuHelicopterAnimation.setCycleCount(Animation.INDEFINITE);
+        gokuHelicopterAnimation.play();
+        TranslateTransition gokuHelicopterAnimationTranslation = new TranslateTransition();
+        gokuHelicopterAnimationTranslation.setNode(gokuHelicopterIv);
+        gokuHelicopterAnimationTranslation.setFromY(540+54);
+        gokuHelicopterAnimationTranslation.setToY(-80);
+        gokuHelicopterAnimationTranslation.setDuration(Duration.seconds(10));
+        gokuHelicopterAnimationTranslation.setCycleCount(1);
+        gokuHelicopterAnimationTranslation.setInterpolator(Interpolator.LINEAR);
+        gokuHelicopterAnimationTranslation.play();
+        gokuHelicopterAnimationTranslation.setOnFinished(actionEvent -> {
+                gokuHelicopterAnimationTranslation.play();
+        });
         //rechterkant scherm
         HBox right = new HBox(10);
         right.setMaxHeight(0);
         right.setMaxWidth(0);
+        right.getChildren().add(gokuHelicopterIv);
         right.getChildren().add(korinTower);
+        
 
         //linker kant scherm
         VBox left = new VBox(30);
@@ -123,8 +150,7 @@ public class StartScherm extends StackPane {
         String bip = "src/assets/bmm.wav";
         Media hit = new Media(Paths.get(bip).toUri().toString());
         MediaPlayer mediaPlayer = new MediaPlayer(hit);
-        mediaPlayer.setVolume(1);
-        
+        mediaPlayer.setVolume(0.05);
         
         //start knop
         start = new ImageView(textSprites);
@@ -152,6 +178,9 @@ public class StartScherm extends StackPane {
             translation.setToX(-362);
             translation.setDuration(Duration.seconds(1));
             translation.play();
+            gokuHelicopterAnimationTranslation.setOnFinished(null);
+            this.getChildren().add(cs);
+            menubar.toFront();
         });
         menu.getChildren().add(start);
         //hervat knop
