@@ -122,8 +122,7 @@ public class Spel {
         return eindeSpel;
     }
     public void doeActie(int plaats) {
-        int nieuweHutkaart;
-        
+        int nieuweHutkaart; 
         switch(plaats){
             case 8:
                 nieuweHutkaart = geefIndexActieveHutkaart(0) + 1;
@@ -136,30 +135,33 @@ public class Spel {
                 }
                 break;
             case 9:
-                nieuweHutkaart = geefIndexActieveHutkaart(1);
+                nieuweHutkaart = geefIndexActieveHutkaart(1) + 1;
                 acties.get(plaats).doeActie(spelerAanZet);
-                if(nieuweHutkaart == -1){
+                if(nieuweHutkaart == 7){
                     eindeSpel = true;
                 } else {
-                    acties.set(8, stapels[0][nieuweHutkaart]);
+                    acties.set(9, stapels[1][nieuweHutkaart]);
+                    stapels[1][nieuweHutkaart].Actief();
                 }
                 break;
             case 10:
                 nieuweHutkaart = geefIndexActieveHutkaart(2) + 1;
                 acties.get(plaats).doeActie(spelerAanZet);
-                if(nieuweHutkaart == -1){
+                if(nieuweHutkaart == 7){
                     eindeSpel = true;
                 } else {
-                    acties.set(8, stapels[0][nieuweHutkaart]);
+                    acties.set(10, stapels[2][nieuweHutkaart]);
+                    stapels[2][nieuweHutkaart].Actief();
                 }
                 break;
             case 11:
-                nieuweHutkaart = geefIndexActieveHutkaart(2) + 1;
+                nieuweHutkaart = geefIndexActieveHutkaart(3) + 1;
                 acties.get(plaats).doeActie(spelerAanZet);
-                if(nieuweHutkaart == -1){
+                if(nieuweHutkaart == 7){
                     eindeSpel = true;
                 } else {
-                    acties.set(8, stapels[0][nieuweHutkaart]);
+                    acties.set(11, stapels[3][nieuweHutkaart]);
+                    stapels[3][nieuweHutkaart].Actief();
                 }
                 break;
             default: 
