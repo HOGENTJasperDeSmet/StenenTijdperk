@@ -5,6 +5,7 @@
  */
 package gui;
 
+import domein.DomeinController;
 import javafx.animation.FadeTransition;
 import javafx.geometry.Pos;
 import javafx.geometry.Rectangle2D;
@@ -13,7 +14,6 @@ import javafx.scene.control.TextField;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
-import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.Priority;
 import javafx.scene.layout.StackPane;
@@ -27,15 +27,16 @@ import javafx.util.Duration;
  */
 public class CharacterSelect extends StackPane{
     private ImageView krillinGezicht, gokuGezicht, jackieChunGezicht, chiaotzuGezicht,
-            vs, doorgaan, infoTekst;
+            infoTekst, startenTekst;
     private Image characterSelectSpriteSheet = new Image(getClass().getResourceAsStream("/assets/characterSelectSprites.png"));
-    private VBox goku, krillin, jackieChun, chiaotzu, midden;
+    private VBox goku, krillin, jackieChun, chiaotzu;
     private GridPane gp = new GridPane();
-    private BorderPane bp = new BorderPane();
     private TextField naamKrillin,naamGoku,naamJackieChun, naamChiaotzu;
     private int aantalSpelers;
-    private String[][] namen;
-    public CharacterSelect() {
+    private boolean characters[] = new boolean[4], startFlag = false;
+    private DomeinController dc;
+    public CharacterSelect(DomeinController dc) {
+        this.dc = dc;
         buildGui();
     }
     
@@ -62,6 +63,46 @@ public class CharacterSelect extends StackPane{
         //sprites texten
         infoTekst = new ImageView(characterSelectSpriteSheet);
         infoTekst.setViewport(new Rectangle2D(0, 402, 468, 43));
+        startenTekst = new ImageView(characterSelectSpriteSheet);
+        startenTekst.setViewport(new Rectangle2D(1, 446, 123, 43));
+        infoTekst.setTranslateY(20); 
+        startenTekst.setTranslateY(20); 
+        
+        startenTekst.setOnMouseEntered((MouseEvent event) -> {
+            this.setCursor(Cursor.HAND);
+        });
+        startenTekst.setOnMouseExited((MouseEvent event) -> {
+            this.setCursor(Cursor.DEFAULT);
+        });
+        startenTekst.setOnMouseExited((MouseEvent event) -> {
+            this.setCursor(Cursor.DEFAULT);
+        });
+        startenTekst.setOnMouseClicked((MouseEvent event) -> {
+            int index = 0;
+            String[][] namen = new String[aantalSpelers][aantalSpelers];
+            if(!naamGoku.getText().equals("")){
+                namen[index][0] = naamGoku.getText();
+                namen[index][1] = "goku";
+                index++;
+            }
+            if(!naamKrillin.getText().equals("")){
+                namen[index][0] = naamKrillin.getText();
+                namen[index][1] = "krillin";
+                index++;
+            }
+            if(!naamJackieChun.getText().equals("")){
+                namen[index][0] = naamJackieChun.getText();
+                namen[index][1] = "jackieChun";
+                index++;
+            }
+            if(!naamChiaotzu.getText().equals("")){
+                namen[index][0] = naamChiaotzu.getText();
+                namen[index][1] = "chiaotzu";
+                index++;
+            }
+            dc.startSpel(namen);
+        });
+        startenTekst.setPickOnBounds(true);
         
         //textbox
         naamKrillin = new TextField();
@@ -98,11 +139,37 @@ public class CharacterSelect extends StackPane{
         GridPane.setVgrow(jackieChun, Priority.ALWAYS);
         GridPane.setHgrow(chiaotzu, Priority.ALWAYS);
         GridPane.setVgrow(chiaotzu, Priority.ALWAYS);
-        naamKrillin.setOnKeyTyped(InputMethodEvent -> {
-            
+        naamGoku.textProperty().addListener((obs,oldText, newText) -> {
+            if(!"".equals(newText)){
+                characters[0] = true;
+            } else {
+                characters[0] = false;
+            }
+            startKnop();
         });
-        naamGoku.setOnKeyTyped(InputMethodEvent -> {
-            
+        naamKrillin.textProperty().addListener((obs,oldText, newText) -> {
+            if(!"".equals(newText)){
+                characters[1] = true;
+            } else {
+                characters[1] = false;
+            }
+            startKnop();
+        });
+        naamChiaotzu.textProperty().addListener((obs,oldText, newText) -> {
+            if(!"".equals(newText)){
+                characters[2] = true;
+            } else {
+                characters[2] = false;
+            }
+            startKnop();
+        });
+        naamJackieChun.textProperty().addListener((obs,oldText, newText) -> {
+            if(!"".equals(newText)){
+                characters[3] = true;
+            } else {
+                characters[3] = false;
+            }
+            startKnop();
         });
         gp.add(krillin, 0, 0);
         gp.add(goku, 1, 0);
@@ -110,10 +177,30 @@ public class CharacterSelect extends StackPane{
         gp.add(jackieChun, 1, 1);
         getChildren().add(gp);
         getChildren().add(infoTekst);
-        infoTekst.setTranslateY(20); 
-    }
-    public void spelerAantalUpdate(int indexCh){
         
-        infoTekst.setViewport(new Rectangle2D(0, 445, 124, 43));
+        
+    }
+    public void startKnop(){
+        boolean oudeFlag = startFlag;
+        aantalSpelers = 0;
+        for (int i = 0;i < characters.length; i++){
+            if(characters[i]){
+                aantalSpelers++;
+            }
+        }
+        if(aantalSpelers > 1){
+            startFlag = true;
+        } else {
+            startFlag = false;
+        }
+        
+        if(startFlag != oudeFlag && startFlag){
+            getChildren().add(startenTekst);
+            getChildren().remove(infoTekst);
+        } else if(startFlag != oudeFlag && !startFlag){
+            getChildren().add(infoTekst);
+            getChildren().remove(startenTekst);
+            infoTekst.setDisable(false);
+        }
     }
 }

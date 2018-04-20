@@ -5,11 +5,11 @@
  */
 package gui;
 
+import domein.DomeinController;
 import java.nio.file.Paths;
 import javafx.animation.Animation;
 import javafx.animation.FadeTransition;
 import javafx.animation.Interpolator;
-import javafx.animation.KeyFrame;
 import javafx.animation.PathTransition;
 import javafx.animation.Timeline;
 import javafx.animation.TranslateTransition;
@@ -47,11 +47,13 @@ public class StartScherm extends StackPane {
     private Image gokuHelicopter = new Image(getClass().getResourceAsStream("/assets/gokuHelicopter1.png"));
     private ImageView sluiten, logo, start, hervat, score;
     private Stage primaryStage;
+    private DomeinController dc;
     private BorderPane bp = new BorderPane();
-    private CharacterSelect cs = new CharacterSelect();
-    public StartScherm(Stage primaryStage) {
-        buildGui();
+    private CharacterSelect cs = new CharacterSelect(dc);
+    public StartScherm(Stage primaryStage,DomeinController dc) {
         this.primaryStage = primaryStage;
+        this.dc = dc;
+        buildGui();
     }
     
     private void buildGui() {
@@ -177,6 +179,7 @@ public class StartScherm extends StackPane {
             translation.setFromX(korinTower.getTranslateX());
             translation.setToX(-362);
             translation.setDuration(Duration.seconds(1));
+            translation.setInterpolator(Interpolator.LINEAR);
             translation.play();
             translation.setOnFinished(ActionEvent -> {
                 this.getChildren().add(cs);

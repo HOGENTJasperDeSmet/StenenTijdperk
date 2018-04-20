@@ -24,18 +24,34 @@ public class Spel {
     //Constructor
     public Spel(String[] namen){
         int aantalSpelers = namen.length;
-        //Grondstoffen toevoegen
-        grondstoffen[0] = new Grondstof(2, "Voedsel");
-        grondstoffen[1] = new Grondstof(3, "Hout");
-        grondstoffen[2] = new Grondstof(4, "Leem");
-        grondstoffen[3] = new Grondstof(5, "Steen");
-        grondstoffen[4] = new Grondstof(6, "Goud");
         
         //Spelers toevoegen
         for(int i = 1;i <= aantalSpelers; i++){
             spelers.add(new Speler(i,namen[i - 1]));
         }
         bepaalSpelerAanZet(aantalSpelers);
+        
+        StartSpel();
+        
+    }
+    public Spel(String[][] namen){
+        int aantalSpelers = namen.length;
+        
+        //Spelers toevoegen
+        for(int i = 1;i <= aantalSpelers; i++){
+            spelers.add(new Speler(i,namen[i - 1][0],namen[i - 1][1]));
+        }
+        bepaalSpelerAanZet(aantalSpelers);
+        
+        StartSpel();
+    }
+    private void StartSpel(){
+        //Grondstoffen toevoegen
+        grondstoffen[0] = new Grondstof(2, "Voedsel");
+        grondstoffen[1] = new Grondstof(3, "Hout");
+        grondstoffen[2] = new Grondstof(4, "Leem");
+        grondstoffen[3] = new Grondstof(5, "Steen");
+        grondstoffen[4] = new Grondstof(6, "Goud");
         
         acties.add(new Akker(1));
         acties.add(new Hut(2));
@@ -67,7 +83,6 @@ public class Spel {
         }
         eindeSpel = false;
     }
-    
     private void bepaalSpelerAanZet(int aantalSpelers){
         Random rand = new Random();
         spelerAanZet = spelers.get(rand.nextInt(aantalSpelers));
