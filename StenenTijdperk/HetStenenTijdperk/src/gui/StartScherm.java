@@ -178,9 +178,13 @@ public class StartScherm extends StackPane {
             translation.setToX(-362);
             translation.setDuration(Duration.seconds(1));
             translation.play();
+            translation.setOnFinished(ActionEvent -> {
+                this.getChildren().add(cs);
+                menubar.toFront();
+            });
             gokuHelicopterAnimationTranslation.setOnFinished(null);
-            this.getChildren().add(cs);
-            menubar.toFront();
+            
+            
         });
         menu.getChildren().add(start);
         //hervat knop

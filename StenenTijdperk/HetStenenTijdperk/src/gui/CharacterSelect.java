@@ -5,33 +5,47 @@
  */
 package gui;
 
-import javafx.geometry.HPos;
+import javafx.animation.FadeTransition;
 import javafx.geometry.Pos;
 import javafx.geometry.Rectangle2D;
-import javafx.geometry.VPos;
+import javafx.scene.Cursor;
+import javafx.scene.control.TextField;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
+import javafx.scene.input.MouseEvent;
+import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.Priority;
+import javafx.scene.layout.StackPane;
 import javafx.scene.layout.VBox;
+import javafx.scene.text.Font;
+import javafx.util.Duration;
 
 /**
  *
  * @author Jasper
  */
-public class CharacterSelect extends GridPane{
+public class CharacterSelect extends StackPane{
     private ImageView krillinGezicht, gokuGezicht, jackieChunGezicht, chiaotzuGezicht,
-            naamKrillin,naamGoku,naamJackieChun, naamChiaotzu,
-            vs, doorgaan, terug;
+            vs, doorgaan, infoTekst;
     private Image characterSelectSpriteSheet = new Image(getClass().getResourceAsStream("/assets/characterSelectSprites.png"));
-    private VBox goku, krillin, jackieChun, chiaotzu;
+    private VBox goku, krillin, jackieChun, chiaotzu, midden;
+    private GridPane gp = new GridPane();
+    private BorderPane bp = new BorderPane();
+    private TextField naamKrillin,naamGoku,naamJackieChun, naamChiaotzu;
+    private int aantalSpelers;
+    private String[][] namen;
     public CharacterSelect() {
         buildGui();
     }
     
     private void buildGui() {
-        this.setHgap(30);
+        gp.setHgap(30);
         
+        FadeTransition fadeOut = new FadeTransition(Duration.millis(500));
+        fadeOut.setFromValue(1.0);
+        fadeOut.setToValue(0.0);
+        fadeOut.play();
         
         //sprites gezichten
         krillinGezicht = new ImageView(characterSelectSpriteSheet);
@@ -45,17 +59,27 @@ public class CharacterSelect extends GridPane{
         chiaotzuGezicht = new ImageView(characterSelectSpriteSheet);
         chiaotzuGezicht.setViewport(new Rectangle2D(283, 201, 283, 201));
         
+        //sprites texten
+        infoTekst = new ImageView(characterSelectSpriteSheet);
+        infoTekst.setViewport(new Rectangle2D(0, 402, 468, 43));
+        
         //textbox
-        naamKrillin = new ImageView(characterSelectSpriteSheet);
-        naamKrillin.setViewport(new Rectangle2D(283, 402, 283, 48));
-        naamGoku = new ImageView(characterSelectSpriteSheet);
-        naamGoku.setViewport(new Rectangle2D(283, 402, 283, 48));
-        naamJackieChun = new ImageView(characterSelectSpriteSheet);
-        naamJackieChun.setViewport(new Rectangle2D(283, 402, 283, 48));
-        naamChiaotzu = new ImageView(characterSelectSpriteSheet);
-        naamChiaotzu.setViewport(new Rectangle2D(283, 402, 283, 48));
-        
-        
+        naamKrillin = new TextField();
+        naamGoku = new TextField();
+        naamJackieChun= new TextField();
+        naamChiaotzu= new TextField();
+        naamKrillin.setMaxWidth(284);
+        naamGoku.setMaxWidth(284);
+        naamJackieChun.setMaxWidth(284);
+        naamChiaotzu.setMaxWidth(284);
+        naamKrillin.setAlignment(Pos.CENTER);
+        naamGoku.setAlignment(Pos.CENTER);
+        naamJackieChun.setAlignment(Pos.CENTER);
+        naamChiaotzu.setAlignment(Pos.CENTER);
+        naamKrillin.setFont(Font.font("Karma future",28));
+        naamGoku.setFont(Font.font("Karma future",28));
+        naamJackieChun.setFont(Font.font("Karma future",28));
+        naamChiaotzu.setFont(Font.font("Karma future",28));
         //Hboxes
         goku = new VBox(gokuGezicht,naamGoku);
         krillin = new VBox(krillinGezicht,naamKrillin);
@@ -63,21 +87,33 @@ public class CharacterSelect extends GridPane{
         chiaotzu = new VBox(chiaotzuGezicht,naamChiaotzu);
         goku.setAlignment(Pos.CENTER);
         krillin.setAlignment(Pos.CENTER);
-        jackieChun.setAlignment(Pos.CENTER);
-        chiaotzu.setAlignment(Pos.CENTER);
+        jackieChun.setAlignment(Pos.TOP_CENTER);
+        chiaotzu.setAlignment(Pos.TOP_CENTER);
         
-        setHgrow(goku, Priority.ALWAYS);
-        setVgrow(goku, Priority.ALWAYS);
-        setHgrow(krillin, Priority.ALWAYS);
-        setVgrow(krillin, Priority.ALWAYS);
-        setHgrow(jackieChun, Priority.ALWAYS);
-        setVgrow(jackieChun, Priority.ALWAYS);
-        setHgrow(chiaotzu, Priority.ALWAYS);
-        setVgrow(chiaotzu, Priority.ALWAYS);
+        GridPane.setHgrow(goku, Priority.ALWAYS);
+        GridPane.setVgrow(goku, Priority.ALWAYS);
+        GridPane.setHgrow(krillin, Priority.ALWAYS);
+        GridPane.setVgrow(krillin, Priority.ALWAYS);
+        GridPane.setHgrow(jackieChun, Priority.ALWAYS);
+        GridPane.setVgrow(jackieChun, Priority.ALWAYS);
+        GridPane.setHgrow(chiaotzu, Priority.ALWAYS);
+        GridPane.setVgrow(chiaotzu, Priority.ALWAYS);
+        naamKrillin.setOnKeyTyped(InputMethodEvent -> {
+            
+        });
+        naamGoku.setOnKeyTyped(InputMethodEvent -> {
+            
+        });
+        gp.add(krillin, 0, 0);
+        gp.add(goku, 1, 0);
+        gp.add(chiaotzu, 0, 1);
+        gp.add(jackieChun, 1, 1);
+        getChildren().add(gp);
+        getChildren().add(infoTekst);
+        infoTekst.setTranslateY(20); 
+    }
+    public void spelerAantalUpdate(int indexCh){
         
-        this.add(goku, 1, 0);
-        this.add(krillin, 0, 0);
-        this.add(jackieChun, 1, 1);
-        this.add(chiaotzu, 0, 1);
+        infoTekst.setViewport(new Rectangle2D(0, 445, 124, 43));
     }
 }
