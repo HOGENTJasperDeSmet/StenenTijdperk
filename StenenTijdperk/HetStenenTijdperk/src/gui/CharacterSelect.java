@@ -25,10 +25,7 @@ import javafx.scene.layout.VBox;
 import javafx.scene.text.Font;
 import javafx.util.Duration;
 
-/**
- *
- * @author Jasper
- */
+
 public class CharacterSelect extends StackPane{
     private ImageView krillinGezicht, gokuGezicht, jackieChunGezicht, chiaotzuGezicht,
             infoTekst, startenTekst;
