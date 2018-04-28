@@ -6,6 +6,10 @@
 package gui;
 
 import domein.DomeinController;
+<<<<<<< HEAD
+import java.util.Arrays;
+=======
+>>>>>>> 3fcb47711be55d37012883d9ff92061bd1cd58fa
 import javafx.animation.FadeTransition;
 import javafx.geometry.Pos;
 import javafx.geometry.Rectangle2D;
@@ -34,6 +38,10 @@ public class CharacterSelect extends StackPane{
     private TextField naamKrillin,naamGoku,naamJackieChun, naamChiaotzu;
     private int aantalSpelers;
     private boolean characters[] = new boolean[4], startFlag = false;
+<<<<<<< HEAD
+    private SpelBord spelbord;
+=======
+>>>>>>> 3fcb47711be55d37012883d9ff92061bd1cd58fa
     private DomeinController dc;
     public CharacterSelect(DomeinController dc) {
         this.dc = dc;
@@ -79,15 +87,31 @@ public class CharacterSelect extends StackPane{
         });
         startenTekst.setOnMouseClicked((MouseEvent event) -> {
             int index = 0;
+<<<<<<< HEAD
+            System.out.println(index);
+            String[][] namen = new String[aantalSpelers][2];
+            if(!naamKrillin.getText().equals("")){
+                namen[index][0] = naamKrillin.getText();
+                namen[index][1] = "krillin";
+                index++;
+            }
+=======
             String[][] namen = new String[aantalSpelers][aantalSpelers];
+>>>>>>> 3fcb47711be55d37012883d9ff92061bd1cd58fa
             if(!naamGoku.getText().equals("")){
                 namen[index][0] = naamGoku.getText();
                 namen[index][1] = "goku";
                 index++;
             }
+<<<<<<< HEAD
+            if(!naamChiaotzu.getText().equals("")){
+                namen[index][0] = naamChiaotzu.getText();
+                namen[index][1] = "chiaotzu";
+=======
             if(!naamKrillin.getText().equals("")){
                 namen[index][0] = naamKrillin.getText();
                 namen[index][1] = "krillin";
+>>>>>>> 3fcb47711be55d37012883d9ff92061bd1cd58fa
                 index++;
             }
             if(!naamJackieChun.getText().equals("")){
@@ -95,12 +119,19 @@ public class CharacterSelect extends StackPane{
                 namen[index][1] = "jackieChun";
                 index++;
             }
+<<<<<<< HEAD
+            dc.startSpel(namen);
+            spelbord = new SpelBord(dc);
+            getChildren().add(spelbord);
+            System.out.println(dc.geefSpelbord());
+=======
             if(!naamChiaotzu.getText().equals("")){
                 namen[index][0] = naamChiaotzu.getText();
                 namen[index][1] = "chiaotzu";
                 index++;
             }
             dc.startSpel(namen);
+>>>>>>> 3fcb47711be55d37012883d9ff92061bd1cd58fa
         });
         startenTekst.setPickOnBounds(true);
         
