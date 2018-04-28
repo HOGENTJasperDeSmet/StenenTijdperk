@@ -14,6 +14,9 @@ public class DomeinController {
     public void startSpel(String[] namen){
         spel = new Spel(namen);
     }
+    public void startSpel(String[][] namen){
+        spel = new Spel(namen);
+    }
     public void plaatsStamleden(int plaats, int aantalStamleden){
         spel.plaatsStamleden(plaats,aantalStamleden);
     }

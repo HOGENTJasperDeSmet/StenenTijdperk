@@ -24,18 +24,34 @@ public class Spel {
     //Constructor
     public Spel(String[] namen){
         int aantalSpelers = namen.length;
-        //Grondstoffen toevoegen
-        grondstoffen[0] = new Grondstof(2, "Voedsel");
-        grondstoffen[1] = new Grondstof(3, "Hout");
-        grondstoffen[2] = new Grondstof(4, "Leem");
-        grondstoffen[3] = new Grondstof(5, "Steen");
-        grondstoffen[4] = new Grondstof(6, "Goud");
         
         //Spelers toevoegen
         for(int i = 1;i <= aantalSpelers; i++){
             spelers.add(new Speler(i,namen[i - 1]));
         }
         bepaalSpelerAanZet(aantalSpelers);
+        
+        StartSpel();
+        
+    }
+    public Spel(String[][] namen){
+        int aantalSpelers = namen.length;
+        
+        //Spelers toevoegen
+        for(int i = 1;i <= aantalSpelers; i++){
+            spelers.add(new Speler(i,namen[i - 1][0],namen[i - 1][1]));
+        }
+        bepaalSpelerAanZet(aantalSpelers);
+        
+        StartSpel();
+    }
+    private void StartSpel(){
+        //Grondstoffen toevoegen
+        grondstoffen[0] = new Grondstof(2, "Voedsel");
+        grondstoffen[1] = new Grondstof(3, "Hout");
+        grondstoffen[2] = new Grondstof(4, "Leem");
+        grondstoffen[3] = new Grondstof(5, "Steen");
+        grondstoffen[4] = new Grondstof(6, "Goud");
         
         acties.add(new Akker(1));
         acties.add(new Hut(2));
@@ -67,7 +83,6 @@ public class Spel {
         }
         eindeSpel = false;
     }
-    
     private void bepaalSpelerAanZet(int aantalSpelers){
         Random rand = new Random();
         spelerAanZet = spelers.get(rand.nextInt(aantalSpelers));
@@ -122,8 +137,7 @@ public class Spel {
         return eindeSpel;
     }
     public void doeActie(int plaats) {
-        int nieuweHutkaart;
-        
+        int nieuweHutkaart; 
         switch(plaats){
             case 8:
                 nieuweHutkaart = geefIndexActieveHutkaart(0) + 1;
@@ -136,30 +150,33 @@ public class Spel {
                 }
                 break;
             case 9:
-                nieuweHutkaart = geefIndexActieveHutkaart(1);
+                nieuweHutkaart = geefIndexActieveHutkaart(1) + 1;
                 acties.get(plaats).doeActie(spelerAanZet);
-                if(nieuweHutkaart == -1){
+                if(nieuweHutkaart == 7){
                     eindeSpel = true;
                 } else {
-                    acties.set(8, stapels[0][nieuweHutkaart]);
+                    acties.set(9, stapels[1][nieuweHutkaart]);
+                    stapels[1][nieuweHutkaart].Actief();
                 }
                 break;
             case 10:
                 nieuweHutkaart = geefIndexActieveHutkaart(2) + 1;
                 acties.get(plaats).doeActie(spelerAanZet);
-                if(nieuweHutkaart == -1){
+                if(nieuweHutkaart == 7){
                     eindeSpel = true;
                 } else {
-                    acties.set(8, stapels[0][nieuweHutkaart]);
+                    acties.set(10, stapels[2][nieuweHutkaart]);
+                    stapels[2][nieuweHutkaart].Actief();
                 }
                 break;
             case 11:
-                nieuweHutkaart = geefIndexActieveHutkaart(2) + 1;
+                nieuweHutkaart = geefIndexActieveHutkaart(3) + 1;
                 acties.get(plaats).doeActie(spelerAanZet);
-                if(nieuweHutkaart == -1){
+                if(nieuweHutkaart == 7){
                     eindeSpel = true;
                 } else {
-                    acties.set(8, stapels[0][nieuweHutkaart]);
+                    acties.set(11, stapels[3][nieuweHutkaart]);
+                    stapels[3][nieuweHutkaart].Actief();
                 }
                 break;
             default: 

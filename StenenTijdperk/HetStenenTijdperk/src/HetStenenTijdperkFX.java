@@ -5,6 +5,7 @@
  */
 
 
+import domein.DomeinController;
 import gui.StartScherm;
 import javafx.application.Application;
 import javafx.scene.Scene;
@@ -20,9 +21,8 @@ public class HetStenenTijdperkFX extends Application {
     @Override
     public void start(Stage primaryStage) {
         
-        
-        StartScherm root = new StartScherm(primaryStage);
-        
+        DomeinController dc = new DomeinController();
+        StartScherm root = new StartScherm(primaryStage,dc);
         
         Scene scene = new Scene(root, 960, 540);
         primaryStage.initStyle(StageStyle.UNDECORATED);

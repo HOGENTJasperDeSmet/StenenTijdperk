@@ -22,7 +22,7 @@ public class Speler {
             aantalHout,
             score,
             geplaatsteStamleden;
-    private String naam;
+    private String naam, character;
     private ArrayList<Stamlid> stamleden = new ArrayList<>();
     private Gereedschapsfiche[] gereedschappen = new Gereedschapsfiche[3];
     public Speler(int spelerNummer,String naam){
@@ -37,7 +37,19 @@ public class Speler {
         gereedschappen[1] = new Gereedschapsfiche();
         gereedschappen[2] = new Gereedschapsfiche();
     }
-    
+    public Speler(int spelerNummer,String naam , String character){
+        this.spelerNummer = spelerNummer;
+        this.naam = naam;
+        this.character = character;
+        stamleden.add(new Stamlid());
+        stamleden.add(new Stamlid());
+        stamleden.add(new Stamlid());
+        stamleden.add(new Stamlid());
+        stamleden.add(new Stamlid()); 
+        gereedschappen[0] = new Gereedschapsfiche();
+        gereedschappen[1] = new Gereedschapsfiche();
+        gereedschappen[2] = new Gereedschapsfiche();
+    }
     @Override
     public String toString(){
         return String.format("Speler %d %s met score %d en %n"
