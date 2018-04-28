@@ -26,6 +26,10 @@ public class DomeinController {
     public String geefSpelerAanZet(){
         return spel.geefSpelerAanZet();
     }
+    public String geefSpelerKarakter(int index){
+        return spel.SpelerKarakter(index);
+        
+    }
     public String geefSpelbord(){
         return spel.toString();
     }
@@ -150,5 +154,17 @@ public class DomeinController {
 
     public String geefSpelerNaamAanZet() {
         return spel.geefSpelerNaamAanZet();
+    }
+
+    public String[][] geefInfoKaarten() {
+        return spel.geefInfoKaarten();
+    }
+
+    public int geefSpelerAanZetSpelerNummer() {
+        return spel.geefSpelerAanZetSpelerNummer();
+    }
+
+    public int[] geefSpelerGereedschap(int i) {
+        return spel.geefSpelerGereedschap(i);
     }
 }

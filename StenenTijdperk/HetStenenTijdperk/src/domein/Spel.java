@@ -116,6 +116,9 @@ public class Spel {
     public String geefSpelerAanZet(){
         return String.format("%nDe speler aan zet is %s",spelerAanZet.getNaam());
     }
+    public String SpelerKarakter(int index){
+        return spelers.get(index).getCharacter();
+    }
     public String geefSpelerAanZetPlaatsen(){
         return String.format("%s, je hebt nog %d stamleden over%n",geefSpelerAanZet(),spelerAanZet.geefBeschikbareStamleden());
     }
@@ -342,6 +345,26 @@ public class Spel {
 
     public String geefSpelerNaamAanZet() {
         return spelerAanZet.getNaam();
+    }
+
+    String[][] geefInfoKaarten() {
+        String[][] infoKaarten = new String[4][4];
+        for(int i = 0;i < 4; i ++){
+            infoKaarten[i][0] = "" + stapels[i][geefIndexActieveHutkaart(i)].berekenWaarde();
+            infoKaarten[i][1] = "" + stapels[i][geefIndexActieveHutkaart(i)].geefKost1naam();
+            infoKaarten[i][2] = "" + stapels[i][geefIndexActieveHutkaart(i)].geefKost2naam();
+            infoKaarten[i][3] = "" + stapels[i][geefIndexActieveHutkaart(i)].geefKost3naam();
+        }
+        
+        return infoKaarten;
+    }
+
+    public int geefSpelerAanZetSpelerNummer() {
+        return spelerAanZet.getSpelerNummer();
+    }
+
+    int[] geefSpelerGereedschap(int i) {
+        return spelers.get(i).geefGereedschap();
     }
 
     

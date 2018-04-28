@@ -49,7 +49,7 @@ public class StartScherm extends StackPane {
     private Stage primaryStage;
     private DomeinController dc;
     private BorderPane bp = new BorderPane();
-    private CharacterSelect cs = new CharacterSelect(dc);
+    private CharacterSelect cs;
     public StartScherm(Stage primaryStage,DomeinController dc) {
         this.primaryStage = primaryStage;
         this.dc = dc;
@@ -106,12 +106,12 @@ public class StartScherm extends StackPane {
         menubar.getChildren().addAll(sluiten);
         //gokuHelicopter
         final ImageView gokuHelicopterIv = new ImageView(gokuHelicopter);
-        gokuHelicopterIv.setViewport(new Rectangle2D(0,0,102,80));
+        gokuHelicopterIv.setViewport(new Rectangle2D(1,0,102,80));
         final Animation gokuHelicopterAnimation = new SpriteAnimation(
                 gokuHelicopterIv,
                 Duration.millis(300),
                 4, 4,
-                0, 0,
+                -1, 0,
                 102, 80
         );
         gokuHelicopterAnimation.setCycleCount(Animation.INDEFINITE);
@@ -186,7 +186,7 @@ public class StartScherm extends StackPane {
                 menubar.toFront();
             });
             gokuHelicopterAnimationTranslation.setOnFinished(null);
-            
+            cs = new CharacterSelect(dc);
             
         });
         menu.getChildren().add(start);
@@ -210,14 +210,12 @@ public class StartScherm extends StackPane {
         score.setViewport(new Rectangle2D(2, 216, 300, 46));
         score.setPickOnBounds(true);
         score.setOnMouseEntered((MouseEvent event) -> {
-            //mediaPlayer.play();
             this.setCursor(Cursor.HAND);
             score.setViewport(new Rectangle2D(323, 216, 300, 46));
         });
         score.setOnMouseExited((MouseEvent event) -> {
             this.setCursor(Cursor.DEFAULT); //Change cursor to hand
             score.setViewport(new Rectangle2D(2, 216, 300, 46));
-            //mediaPlayer.stop();
         });
         menu.getChildren().add(score);
 

@@ -164,7 +164,9 @@ public class Speler {
     public Gereedschapsfiche[] getGeerdschapsfiche(){
         return gereedschappen;
     }
-
+    public String getCharacter(){
+        return character;
+    }
     public int getAantalGoud(){
         return aantalGoud;
     }
@@ -270,7 +272,7 @@ public class Speler {
     }
 
     public int[] geefGrondstoffenSpelerAanZet() {
-        return new int[]{aantalHout,aantalLeem,aantalGoud,aantalSteen};
+        return new int[]{aantalHout,aantalLeem,aantalGoud,aantalSteen,aantalVoedsel};
     }
 
     public int nodigVoedsel() {
@@ -286,6 +288,10 @@ public class Speler {
 
     public void BerekenEindscore() {
         score += aantalHout + aantalGoud + aantalLeem + aantalSteen;
+    }
+
+    public int[] geefGereedschap() {
+        return new int[]{gereedschappen[0].getKracht(),gereedschappen[1].getKracht(),gereedschappen[2].getKracht()};
     }
 
 

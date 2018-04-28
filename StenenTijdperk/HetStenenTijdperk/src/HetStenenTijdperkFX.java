@@ -20,7 +20,6 @@ public class HetStenenTijdperkFX extends Application {
     
     @Override
     public void start(Stage primaryStage) {
-        
         DomeinController dc = new DomeinController();
         StartScherm root = new StartScherm(primaryStage,dc);
         

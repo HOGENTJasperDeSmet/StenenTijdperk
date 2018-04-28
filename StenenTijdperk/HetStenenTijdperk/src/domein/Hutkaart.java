@@ -34,9 +34,17 @@ public class Hutkaart extends Actie{
         int beschikbaar = this.geefBeschikbarePlaatsen();
         return String.format("Hutkaart van stapel %d waarde: %d kost 1: %s 2: %s 3: %s%n",stapel,berekenWaarde(),kosten[0].getNaam(),kosten[1].getNaam(),kosten[2].getNaam(),beschikbaar,beschikbaar == 0 ? "plaats" : "plaatsen");
     }
-    
     public int berekenWaarde(){
         return kosten[0].getWaarde() + kosten[1].getWaarde() + kosten[2].getWaarde();
+    }
+    public String geefKost1naam(){
+        return kosten[0].getNaam();  
+    }
+    public String geefKost2naam(){
+        return kosten[1].getNaam();  
+    }
+    public String geefKost3naam(){
+        return kosten[2].getNaam();  
     }
     @Override
     public void doeActie(Speler speler) {
