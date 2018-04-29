@@ -16,10 +16,10 @@ public class Speler {
     private final int spelerNummer;
     private int voedselProductie,
             aantalVoedsel = 12,
-            aantalGoud = 100,
-            aantalSteen = 100,
-            aantalLeem = 100,
-            aantalHout = 100,
+            aantalGoud,
+            aantalSteen,
+            aantalLeem,
+            aantalHout,
             score,
             geplaatsteStamleden;
     private String naam, character;
