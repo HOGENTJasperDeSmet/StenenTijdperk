@@ -65,7 +65,6 @@ public class Hutkaart extends Actie{
                     break;
             }
         }
-        System.out.println(speler.toString());
         speler.verwijderStamledenVanPlaats(this);
         if(speler.getAantalGoud() >= goudKost){
             if(speler.getAantalHout() >= houtKost){

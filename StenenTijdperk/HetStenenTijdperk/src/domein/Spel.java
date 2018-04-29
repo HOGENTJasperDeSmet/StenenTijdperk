@@ -142,7 +142,7 @@ public class Spel {
     public void doeActie(int plaats) {
         int nieuweHutkaart; 
         switch(plaats){
-            case 8:
+            case 8: 
                 nieuweHutkaart = geefIndexActieveHutkaart(0) + 1;
                 acties.get(plaats).doeActie(spelerAanZet);
                 if(nieuweHutkaart == 7){
@@ -349,12 +349,21 @@ public class Spel {
 
     String[][] geefInfoKaarten() {
         String[][] infoKaarten = new String[4][4];
-        for(int i = 0;i < 4; i ++){
-            infoKaarten[i][0] = "" + stapels[i][geefIndexActieveHutkaart(i)].berekenWaarde();
-            infoKaarten[i][1] = "" + stapels[i][geefIndexActieveHutkaart(i)].geefKost1naam();
-            infoKaarten[i][2] = "" + stapels[i][geefIndexActieveHutkaart(i)].geefKost2naam();
-            infoKaarten[i][3] = "" + stapels[i][geefIndexActieveHutkaart(i)].geefKost3naam();
+       
+           for(int i = 0;i < 4; i ++){
+                if(eindeSpel){
+                    infoKaarten[i][0] = "99";
+                    infoKaarten[i][1] = "goud";
+                    infoKaarten[i][2] = "goud";
+                    infoKaarten[i][3] = "goud";
+                } else {
+                    infoKaarten[i][0] = "" + stapels[i][geefIndexActieveHutkaart(i)].berekenWaarde();
+                    infoKaarten[i][1] = "" + stapels[i][geefIndexActieveHutkaart(i)].geefKost1naam();
+                    infoKaarten[i][2] = "" + stapels[i][geefIndexActieveHutkaart(i)].geefKost2naam();
+                    infoKaarten[i][3] = "" + stapels[i][geefIndexActieveHutkaart(i)].geefKost3naam();
+            } 
         }
+        
         
         return infoKaarten;
     }

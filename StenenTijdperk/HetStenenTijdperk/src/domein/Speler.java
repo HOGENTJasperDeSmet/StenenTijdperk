@@ -16,10 +16,10 @@ public class Speler {
     private final int spelerNummer;
     private int voedselProductie,
             aantalVoedsel = 12,
-            aantalGoud,
-            aantalSteen,
-            aantalLeem,
-            aantalHout,
+            aantalGoud = 100,
+            aantalSteen = 100,
+            aantalLeem = 100,
+            aantalHout = 100,
             score,
             geplaatsteStamleden;
     private String naam, character;
@@ -272,7 +272,7 @@ public class Speler {
     }
 
     public int[] geefGrondstoffenSpelerAanZet() {
-        return new int[]{aantalHout,aantalLeem,aantalGoud,aantalSteen,aantalVoedsel};
+        return new int[]{aantalHout,aantalLeem,aantalSteen,aantalGoud,aantalVoedsel};
     }
 
     public int nodigVoedsel() {
