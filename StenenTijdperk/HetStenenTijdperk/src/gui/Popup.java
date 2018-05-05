@@ -65,11 +65,12 @@ public class Popup extends StackPane {
         if (dc.alleActiesUitgevoerdSpelerAanZet()) {
             sb.verhoogSpelersDieActiesHebbenVoltooid();
             if (sb.getspelersDieActiesHebbenVoltooid()== dc.geefAantalSpelers()) {
-                System.out.println("Voedselfase");
                 sb.voedselFase();
+            } else {
+               dc.volgendeSpeler();
+                sb.setSpelerAanZetNummer(dc.geefSpelerAanZetSpelerNummer()); 
             }
-            dc.volgendeSpeler();
-            sb.setSpelerAanZetNummer(dc.geefSpelerAanZetSpelerNummer());
+            
         }
         sb.uiUpdate();
         sb.getChildren().remove(this);

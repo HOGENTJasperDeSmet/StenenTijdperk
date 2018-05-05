@@ -745,15 +745,26 @@ public class SpelBord extends StackPane {
                         if (dc.alleActiesUitgevoerdSpelerAanZet()) {
                             verhoogSpelersDieActiesHebbenVoltooid();
                             if (spelersDieActiesHebbenVoltooid == dc.geefAantalSpelers()) {
-                                System.out.println("Voedselfase");
                                 voedselFase();
+                            } else {
+                                dc.volgendeSpeler();
+                                SpelerAanZetNummer = dc.geefSpelerAanZetSpelerNummer();
                             }
-                            dc.volgendeSpeler();
-                            SpelerAanZetNummer = dc.geefSpelerAanZetSpelerNummer();
+
                         }
                         uiUpdate();
                     } catch (IllegalArgumentException iae) {
+                        if (dc.alleActiesUitgevoerdSpelerAanZet()) {
+                            verhoogSpelersDieActiesHebbenVoltooid();
+                            if (spelersDieActiesHebbenVoltooid == dc.geefAantalSpelers()) {
+                                voedselFase();
+                            } else {
+                                dc.volgendeSpeler();
+                                SpelerAanZetNummer = dc.geefSpelerAanZetSpelerNummer();
+                            }
+                        }
                         System.out.println(iae.getMessage());
+
                     }
                     break;
                 case 2:
@@ -785,20 +796,17 @@ public class SpelBord extends StackPane {
 
     public void voedselFase() {
         dc.voedselProductie();
+        uiUpdate();
         if (spelersDieStamledenHebbenGevoed != dc.geefAantalSpelers()) {
             spelersDieStamledenHebbenGevoed++;
-            System.out.println(spelersDieStamledenHebbenGevoed);
             if (dc.HeeftGenoegVoedselspelerAanZet()) {
-                uiUpdate();
                 dc.voedStamledenSpelerAanZet();
                 dc.volgendeSpeler();
                 SpelerAanZetNummer = dc.geefSpelerAanZetSpelerNummer();
                 voedselFase();
             } else {
-                uiUpdate();
                 PopUpVoedsel voedsel = new PopUpVoedsel(dc, this);
                 this.getChildren().add(voedsel);
-                
             }
         } else {
             System.out.println(dc.eindeSpel());
