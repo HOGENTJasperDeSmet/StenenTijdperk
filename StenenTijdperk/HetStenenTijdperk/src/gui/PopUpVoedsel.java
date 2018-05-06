@@ -6,6 +6,7 @@
 package gui;
 
 import domein.DomeinController;
+
 import static java.lang.Float.MAX_VALUE;
 import javafx.geometry.Insets;
 import javafx.scene.control.Button;
@@ -13,6 +14,7 @@ import javafx.scene.control.TextField;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.StackPane;
 import javafx.scene.layout.VBox;
+import javafx.scene.paint.Color;
 import javafx.scene.text.Text;
 import javafx.scene.text.TextAlignment;
 
@@ -62,7 +64,8 @@ public class PopUpVoedsel extends StackPane {
         grondstoffen.setOnMouseClicked((MouseEvent event) -> {
             melding = new Text(String.format("Je hebt een totaal van %d grondstoffen nodig", dc.nodigVoedselSpelerAanZet()));
             fout = new Text();
-            fout.setStyle("-fx-color: red;");
+            fout.setWrappingWidth(200);
+            fout.setFill(Color.RED);
             vbox.getChildren().clear();
             aantalHout = new TextField();
             aantalHout.setPromptText("Aantal hout");

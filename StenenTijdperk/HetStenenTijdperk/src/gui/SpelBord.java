@@ -39,10 +39,10 @@ public class SpelBord extends StackPane {
     private Image chiaotzu = new ImageCharacter(getClass().getResourceAsStream("/assets/ChaiotzuStaan.png"), "chiaotzu");
     private Image jackieChun = new ImageCharacter(getClass().getResourceAsStream("/assets/jackieChunStaan.png"), "jackieChun");
     private Image characterFacesSmall = new Image(getClass().getResourceAsStream("/assets/characterFacesSmall.png"));
-
     private int[] bezettePlaatsen;
     private int[] bezettePlaatsenVorigeBeurt;
     private int SpelerAanZetNummer, laatstGezettePlaats = -1, spelersDieActiesHebbenVoltooid = 0, spelersDieStamledenHebbenGevoed = 0;
+    private meldingPopup melding;
 
     public SpelBord(DomeinController dc) {
         this.dc = dc;
@@ -680,36 +680,42 @@ public class SpelBord extends StackPane {
                     plaatsViews[plaats][bezettePlaatsen[plaats]].setImage(null);
                 }
             } else {
-                if (dc.plaatsIsValid(plaats, bezettePlaatsen[plaats] - bezettePlaatsenVorigeBeurt[plaats] + 1)) {
-                    laatstGezettePlaats = plaats;
-                    bezettePlaatsen[plaats] += 1;
-                    if (plaats == 1) {
-                        if (bezettePlaatsen[plaats] == 2) {
+                try {
+                    if (dc.plaatsIsValid(plaats, bezettePlaatsen[plaats] - bezettePlaatsenVorigeBeurt[plaats] + 1)) {
+                        laatstGezettePlaats = plaats;
+                        bezettePlaatsen[plaats] += 1;
+                        if (plaats == 1) {
+                            if (bezettePlaatsen[plaats] == 2) {
+                                uiLayout.setRight(confirm);
+                            }
+                        } else {
                             uiLayout.setRight(confirm);
                         }
-                    } else {
-                        uiLayout.setRight(confirm);
-                    }
 
-                    switch (dc.geefSpelerKarakter(SpelerAanZetNummer - 1)) {
-                        case "krillin":
-                            plaatsViews[plaats][bezettePlaatsen[plaats] - 1].setImage(krillin);
-                            plaatsViews[plaats][bezettePlaatsen[plaats] - 1].setViewport(new Rectangle2D(0, 0, 25, 30));
-                            break;
-                        case "goku":
-                            plaatsViews[plaats][bezettePlaatsen[plaats] - 1].setImage(goku);
-                            plaatsViews[plaats][bezettePlaatsen[plaats] - 1].setViewport(new Rectangle2D(0, 0, 20, 35));
-                            break;
-                        case "jackieChun":
-                            plaatsViews[plaats][bezettePlaatsen[plaats] - 1].setImage(jackieChun);
-                            plaatsViews[plaats][bezettePlaatsen[plaats] - 1].setViewport(new Rectangle2D(0, 0, 30, 40));
-                            break;
-                        case "chiaotzu":
-                            plaatsViews[plaats][bezettePlaatsen[plaats] - 1].setImage(chiaotzu);
-                            plaatsViews[plaats][bezettePlaatsen[plaats] - 1].setViewport(new Rectangle2D(0, 0, 20, 30));
-                            break;
+                        switch (dc.geefSpelerKarakter(SpelerAanZetNummer - 1)) {
+                            case "krillin":
+                                plaatsViews[plaats][bezettePlaatsen[plaats] - 1].setImage(krillin);
+                                plaatsViews[plaats][bezettePlaatsen[plaats] - 1].setViewport(new Rectangle2D(0, 0, 25, 30));
+                                break;
+                            case "goku":
+                                plaatsViews[plaats][bezettePlaatsen[plaats] - 1].setImage(goku);
+                                plaatsViews[plaats][bezettePlaatsen[plaats] - 1].setViewport(new Rectangle2D(0, 0, 20, 35));
+                                break;
+                            case "jackieChun":
+                                plaatsViews[plaats][bezettePlaatsen[plaats] - 1].setImage(jackieChun);
+                                plaatsViews[plaats][bezettePlaatsen[plaats] - 1].setViewport(new Rectangle2D(0, 0, 30, 40));
+                                break;
+                            case "chiaotzu":
+                                plaatsViews[plaats][bezettePlaatsen[plaats] - 1].setImage(chiaotzu);
+                                plaatsViews[plaats][bezettePlaatsen[plaats] - 1].setViewport(new Rectangle2D(0, 0, 20, 30));
+                                break;
+                        }
                     }
+                } catch (IllegalArgumentException iae) {
+                    melding = new meldingPopup(iae.getMessage(), this);
+                    uiLayout.setTop(melding);
                 }
+
             }
         }
     }
@@ -809,7 +815,6 @@ public class SpelBord extends StackPane {
                 this.getChildren().add(voedsel);
             }
         } else {
-            System.out.println(dc.eindeSpel());
             if (dc.eindeSpel()) {
                 System.out.println("EINDE SPEL BEREIKT");
                 dc.berekenEindscore();
