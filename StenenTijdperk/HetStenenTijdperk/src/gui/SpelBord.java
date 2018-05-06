@@ -736,7 +736,14 @@ public class SpelBord extends StackPane {
         Random rand = new Random();
         int geworpenOgen = 0, worp;
         String geworpen;
-        if (dc.ActieIsValid(plaats)) {
+        boolean actieIsValid = false;
+        try{
+            actieIsValid = dc.ActieIsValid(plaats);
+        } catch (IllegalArgumentException iae){
+            melding = new meldingPopup(iae.getMessage(), this);
+            uiLayout.setTop(melding);
+        }
+        if (actieIsValid) {
             switch (plaats) {
                 case 0:
                 case 1:
@@ -769,7 +776,8 @@ public class SpelBord extends StackPane {
                                 SpelerAanZetNummer = dc.geefSpelerAanZetSpelerNummer();
                             }
                         }
-                        System.out.println(iae.getMessage());
+                        melding = new meldingPopup(iae.getMessage(), this);
+                        uiLayout.setTop(melding);
 
                     }
                     break;

@@ -15,7 +15,7 @@ public class Speler {
 
     private final int spelerNummer;
     private int voedselProductie,
-            aantalVoedsel = 0,
+            aantalVoedsel = 12,
             aantalGoud,
             aantalSteen,
             aantalLeem,
