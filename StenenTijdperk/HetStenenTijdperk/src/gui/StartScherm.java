@@ -57,12 +57,6 @@ public class StartScherm extends StackPane {
     }
     
     private void buildGui() {
-        String mainMenu = "src/assets/mainMenu.mp3";
-        Media mainMenuSong = new Media(Paths.get(mainMenu).toUri().toString());
-        MediaPlayer mainMenuPlayer = new MediaPlayer(mainMenuSong);
-        mainMenuPlayer.setAutoPlay(true);
-        mainMenuPlayer.setCycleCount(MediaPlayer.INDEFINITE);
-        mainMenuPlayer.setVolume(0.05);
         //animations
         Path path = new Path();
         path.getElements().add(new MoveTo(0, 270));

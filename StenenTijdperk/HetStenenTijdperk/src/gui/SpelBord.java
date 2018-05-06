@@ -41,7 +41,7 @@ public class SpelBord extends StackPane {
     private Image characterFacesSmall = new Image(getClass().getResourceAsStream("/assets/characterFacesSmall.png"));
     private int[] bezettePlaatsen;
     private int[] bezettePlaatsenVorigeBeurt;
-    private int SpelerAanZetNummer, laatstGezettePlaats = -1, spelersDieActiesHebbenVoltooid = 0, spelersDieStamledenHebbenGevoed = 0;
+    private int SpelerAanZetNummer, laatstGezettePlaats = -1, spelersDieActiesHebbenVoltooid = 0, spelersDieStamledenHebbenGevoed = 0, geworpenOgen;
     private meldingPopup melding;
 
     public SpelBord(DomeinController dc) {
@@ -734,12 +734,13 @@ public class SpelBord extends StackPane {
 
     public void doeActie(int plaats) {
         Random rand = new Random();
-        int geworpenOgen = 0, worp;
+        int worp;
+        geworpenOgen = 0;
         String geworpen;
         boolean actieIsValid = false;
-        try{
+        try {
             actieIsValid = dc.ActieIsValid(plaats);
-        } catch (IllegalArgumentException iae){
+        } catch (IllegalArgumentException iae) {
             melding = new meldingPopup(iae.getMessage(), this);
             uiLayout.setTop(melding);
         }
@@ -781,11 +782,7 @@ public class SpelBord extends StackPane {
 
                     }
                     break;
-                case 2:
-                case 4:
-                case 5:
-                case 6:
-                case 7:
+                default:
                     geworpen = String.format("Je werpt voor ");
                     worp = rand.nextInt(6) + 1;
                     geworpenOgen += worp;
@@ -795,17 +792,62 @@ public class SpelBord extends StackPane {
                         geworpenOgen += worp;
                     }
                     if (dc.spelerAanZetHeeftOngebruiktGereedschap()) {
-                        geworpen += String.format("en %d.%nVoor een totaal van %d.%nWil je je training gebruiken?", worp, geworpenOgen);
-                        Popup popup = new Popup(geworpen, uiSpriteSheet, true, dc, this, plaats, geworpenOgen);
-                        this.getChildren().add(popup);
+                        geworpen += String.format("en %d.%nVoor een totaal van %d.%nSelecteer de training die je wil gebruiken door er op te klikken", worp, geworpenOgen);
+//                        Popup popup = new Popup(geworpen, uiSpriteSheet, true, dc, this, plaats, geworpenOgen);
+//                        this.getChildren().add(popup);
+                        melding = new meldingPopup(geworpen, this, true);
+                        uiLayout.setTop(melding);
+                        switch (plaats) {
+                            case 2:
+                                jacht.setOnMouseClicked((MouseEvent event) -> {
+                                    doeActieOgen(plaats);
+                                });
+                                break;
+                            case 4:
+                                bos.setOnMouseClicked((MouseEvent event) -> {
+                                    doeActieOgen(plaats);
+                                });
+                                break;
+                            case 5:
+                                bos.setOnMouseClicked((MouseEvent event) -> {
+                                    doeActieOgen(plaats);
+                                });
+                                break;
+                            case 6:
+                                bos.setOnMouseClicked((MouseEvent event) -> {
+                                    doeActieOgen(plaats);
+                                });
+                                break;
+                            case 7:
+                                bos.setOnMouseClicked((MouseEvent event) -> {
+                                    doeActieOgen(plaats);
+                                });
+                                break;
+                        }
                     } else {
                         geworpen += String.format("en %d.%nVoor een totaal van %d.", worp, geworpenOgen);
-                        Popup popup = new Popup(geworpen, uiSpriteSheet, false, dc, this, plaats, geworpenOgen);
-                        this.getChildren().add(popup);
+                        melding = new meldingPopup(geworpen, this, true);
+                        uiLayout.setTop(melding);
+                        doeActieOgen(plaats);
                     }
             }
         }
 
+    }
+
+    public void doeActieOgen(int plaats) {
+        dc.doeActie(plaats, geworpenOgen);
+        verwijderVanPlaats(plaats);
+        if (dc.alleActiesUitgevoerdSpelerAanZet()) {
+            verhoogSpelersDieActiesHebbenVoltooid();
+            if (getspelersDieActiesHebbenVoltooid() == dc.geefAantalSpelers()) {
+                voedselFase();
+            } else {
+                dc.volgendeSpeler();
+                setSpelerAanZetNummer(dc.geefSpelerAanZetSpelerNummer());
+            }
+        }
+        uiUpdate();
     }
 
     public void voedselFase() {
@@ -822,22 +864,20 @@ public class SpelBord extends StackPane {
                 PopUpVoedsel voedsel = new PopUpVoedsel(dc, this);
                 this.getChildren().add(voedsel);
             }
+        } else if (dc.eindeSpel()) {
+            System.out.println("EINDE SPEL BEREIKT");
+            dc.berekenEindscore();
+            EindScore eindscherm = new EindScore(dc, dc.bepaalWinnaar());
+            this.getChildren().add(eindscherm);
         } else {
-            if (dc.eindeSpel()) {
-                System.out.println("EINDE SPEL BEREIKT");
-                dc.berekenEindscore();
-                EindScore eindscherm = new EindScore(dc, dc.bepaalWinnaar());
-                this.getChildren().add(eindscherm);
-            } else {
-                dc.nieuweRonde();
-                uiUpdate();
-                plaatsFase();
-                spelersDieActiesHebbenVoltooid = 0;
-                laatstGezettePlaats = -1;
-                spelersDieStamledenHebbenGevoed = 0;
-                bezettePlaatsen = new int[12];
-                bezettePlaatsenVorigeBeurt = bezettePlaatsen.clone();
-            }
+            dc.nieuweRonde();
+            uiUpdate();
+            plaatsFase();
+            spelersDieActiesHebbenVoltooid = 0;
+            laatstGezettePlaats = -1;
+            spelersDieStamledenHebbenGevoed = 0;
+            bezettePlaatsen = new int[12];
+            bezettePlaatsenVorigeBeurt = bezettePlaatsen.clone();
         }
 
     }

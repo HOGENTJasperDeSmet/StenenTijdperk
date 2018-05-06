@@ -52,5 +52,9 @@ public class meldingPopup extends StackPane{
         });
         ft.setOnFinished( event ->  delay.play());
     }
+    public meldingPopup(String text,SpelBord sp,Boolean kleur){
+        this(text,sp);
+        this.setStyle("-fx-background-color: #28a745;-fx-border-radius: 4; -fx-background-radius: 4;");
+    }
 
 }
