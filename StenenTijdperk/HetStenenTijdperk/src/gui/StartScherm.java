@@ -10,9 +10,7 @@ import javafx.animation.Animation;
 import javafx.animation.FadeTransition;
 import javafx.animation.Interpolator;
 import javafx.animation.TranslateTransition;
-import javafx.application.Platform;
 import javafx.geometry.Insets;
-import javafx.geometry.Pos;
 import javafx.geometry.Rectangle2D;
 import javafx.scene.Cursor;
 import javafx.scene.image.Image;
@@ -22,7 +20,6 @@ import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.StackPane;
 import javafx.scene.layout.VBox;
-import javafx.stage.Stage;
 import javafx.util.Duration;
 /**
  *
@@ -144,28 +141,28 @@ public class StartScherm extends StackPane {
             //mediaPlayer.stop();
         });
         hervat.setOnMouseClicked((MouseEvent event) -> {
-            this.setCursor(Cursor.DEFAULT); //Change cursor to hand
-            hervat.setViewport(new Rectangle2D(2, 168, 300, 46));
-            Image test = new Image(getClass().getResourceAsStream("/assets/kamehameha.png"));
-        ImageView testView = new ImageView(test);
-        testView.setViewport(new Rectangle2D(1,0,960,80));
-        final Animation testAnimation = new SpriteAnimation(
-                testView,
-                Duration.millis(500),
-                18, 1,
-                0, 0,
-                960, 80
-        );
-        testAnimation.setCycleCount(1);
-        testAnimation.play();
-        TranslateTransition tt = new TranslateTransition(Duration.millis(100), testView);
-        tt.setByX(4);
-        tt.setFromY(-1);
-        tt.setToY(1);
-        tt.setCycleCount(Animation.INDEFINITE);
-        tt.setAutoReverse(true);
-        tt.playFromStart();
-        this.getChildren().add(testView);
+//            this.setCursor(Cursor.DEFAULT); //Change cursor to hand
+//            hervat.setViewport(new Rectangle2D(2, 168, 300, 46));
+//            Image test = new Image(getClass().getResourceAsStream("/assets/kamehameha.png"));
+//        ImageView testView = new ImageView(test);
+//        testView.setViewport(new Rectangle2D(1,0,960,80));
+//        final Animation testAnimation = new SpriteAnimation(
+//                testView,
+//                Duration.millis(500),
+//                18, 1,
+//                0, 0,
+//                960, 80
+//        );
+//        testAnimation.setCycleCount(1);
+//        testAnimation.play();
+//        TranslateTransition tt = new TranslateTransition(Duration.millis(100), testView);
+//        tt.setByX(4);
+//        tt.setFromY(-1);
+//        tt.setToY(1);
+//        tt.setCycleCount(Animation.INDEFINITE);
+//        tt.setAutoReverse(true);
+//        tt.playFromStart();
+//        this.getChildren().add(testView);
         });
            menu.getChildren().add(hervat);     
         //score knop

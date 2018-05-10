@@ -178,4 +178,9 @@ public class DomeinController {
     public void verwijderVanPlaats(int plaats) {
         spel.verwijderVanPlaats(plaats);
     }
+
+    public String[][] geefInfoEindscore() {
+        //return new String[][] {{"Goku","goku","100"},{"Krillin","krillin","90"},{"Krillin","jackieChun","80"},{"Krillin","chiaotzu","80"}};
+        return spel.geefInfoEindscore();
+    }
 }

@@ -6,7 +6,9 @@
 package domein;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Random;
+import persistentie.ScoreMapper;
 
 /**
  *
@@ -21,11 +23,14 @@ public class Spel {
     private Hutkaart[][] stapels = new Hutkaart[4][7];
     private Speler startSpeler;
     private boolean eindeSpel;
+    private ScoreRepository sr;
     //Constructor
     public Spel(String[] namen){
         int aantalSpelers = namen.length;
         
-        //Spelers toevoegen
+        
+        
+    //Spelers toevoegen
         for(int i = 1;i <= aantalSpelers; i++){
             spelers.add(new Speler(i,namen[i - 1]));
         }
@@ -35,6 +40,7 @@ public class Spel {
         
     }
     public Spel(String[][] namen){
+        sr = new ScoreRepository();
         int aantalSpelers = namen.length;
         
         //Spelers toevoegen
@@ -326,6 +332,7 @@ public class Spel {
                 winnaar = s;
             }
         }
+        sr.voegToe(winnaar);
         return winnaar.getNaam();
     }
 
@@ -336,7 +343,18 @@ public class Spel {
         }
         return Eindscore;
     }
+    public void sortbyColumn(String arr[][], int col)
+    {
+        Arrays.sort(arr, (final String[] entry1, final String[] entry2) -> {
+            if (Integer.parseInt(entry1[col]) < Integer.parseInt(entry2[col]) )
+                return 1;
+            else
+                return -1;
+        });
+    }
+     
     public String[][] geefInfoEindscore(){
+        
         String[][] infoEindscore = new String[spelers.size()][3];
         int i = 0;
         for(Speler s : spelers){
@@ -345,7 +363,9 @@ public class Spel {
             infoEindscore[i][2] = "" + s.getScore();
             i++;
         }
+        sortbyColumn(infoEindscore,2);
         return infoEindscore;
+        
     }
     public void berekenEindscore() {
         for(Speler s : spelers){
