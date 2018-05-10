@@ -8,7 +8,6 @@ package domein;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Random;
-import persistentie.ScoreMapper;
 
 /**
  *
@@ -39,8 +38,8 @@ public class Spel {
         StartSpel();
         
     }
-    public Spel(String[][] namen){
-        sr = new ScoreRepository();
+    public Spel(String[][] namen,ScoreRepository sr){
+        this.sr = sr;
         int aantalSpelers = namen.length;
         
         //Spelers toevoegen

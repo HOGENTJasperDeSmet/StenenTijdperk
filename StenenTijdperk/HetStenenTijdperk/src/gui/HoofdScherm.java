@@ -17,6 +17,7 @@ import javafx.scene.Cursor;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
+import javafx.scene.layout.Pane;
 import javafx.scene.layout.StackPane;
 import javafx.scene.shape.LineTo;
 import javafx.scene.shape.MoveTo;
@@ -40,7 +41,7 @@ public class HoofdScherm extends StackPane{
     private Stage primaryStage;
     private DomeinController dc;
     private StackPane menubar;
-    
+    private Highscores hs;
     public HoofdScherm(DomeinController dc,Stage primaryStage){
         this.dc = dc;
         this.primaryStage = primaryStage;
@@ -101,8 +102,8 @@ public class HoofdScherm extends StackPane{
         getChildren().add(sp);
         menubar.toFront();
     }
-    public void startScherm(){
-        getChildren().remove(es);
+    public void startScherm(Pane pane){
+        getChildren().remove(pane);
         getChildren().remove(ss);
         ss = new StartScherm(dc, this);
         getChildren().add(ss);
@@ -113,5 +114,11 @@ public class HoofdScherm extends StackPane{
          getChildren().remove(sp);
          getChildren().add(es);
          menubar.toFront();
+    }
+    public void toonHighScores(){
+        hs = new Highscores(dc, this);
+        getChildren().remove(ss);
+        getChildren().add(hs); 
+        menubar.toFront();
     }
 }

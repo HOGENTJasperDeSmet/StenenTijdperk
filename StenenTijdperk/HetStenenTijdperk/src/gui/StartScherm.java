@@ -178,8 +178,9 @@ public class StartScherm extends StackPane {
             score.setViewport(new Rectangle2D(2, 216, 300, 46));
         });
         score.setOnMouseClicked((MouseEvent event) -> {
-            EindScore daskl = new EindScore(dc,"Goku",hs);
-            this.getChildren().add(daskl);
+            //EindScore daskl = new EindScore(dc,"Goku",hs);
+            //this.getChildren().add(daskl);
+            hs.toonHighScores();
         });
         menu.getChildren().add(score);
 

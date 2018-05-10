@@ -11,11 +11,15 @@ package domein;
  */
 public class DomeinController {
     private Spel spel;
+    private ScoreRepository sr = new ScoreRepository();
+    public String[][] geefHighScores(){
+        return sr.geefAlleScores();
+    }
     public void startSpel(String[] namen){
         spel = new Spel(namen);
     }
     public void startSpel(String[][] namen){
-        spel = new Spel(namen);
+        spel = new Spel(namen,sr);
     }
     public void plaatsStamleden(int plaats, int aantalStamleden){
         spel.plaatsStamleden(plaats,aantalStamleden);
@@ -180,7 +184,7 @@ public class DomeinController {
     }
 
     public String[][] geefInfoEindscore() {
-        //return new String[][] {{"Goku","goku","100"},{"Krillin","krillin","90"},{"Krillin","jackieChun","80"},{"Krillin","chiaotzu","80"}};
+        //return new String[][] {{"Goku","krillin","100"},{"Krillin","goku","90"},{"Krillin","jackieChun","80"},{"Krillin","chiaotzu","80"}};
         return spel.geefInfoEindscore();
     }
 }

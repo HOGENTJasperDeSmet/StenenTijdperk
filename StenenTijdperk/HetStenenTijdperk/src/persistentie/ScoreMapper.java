@@ -9,6 +9,7 @@ import domein.Speler;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
+import java.sql.ResultSet;
 import java.sql.SQLException;
 
 /**
@@ -29,6 +30,36 @@ public class ScoreMapper {
                 t.printStackTrace();
             }
             return false;
+        }
+    }
+
+    public String[][] geefAlleScores() {
+        String scores[][];
+        int rijen = 0;
+        try(Connection conn = DriverManager.getConnection(MapperConfig.JBDC_URL)){
+            PreparedStatement queryGeefRijen = conn.prepareStatement("SELECT count(*) FROM highscores");
+            try(ResultSet rs = queryGeefRijen.executeQuery()){
+                if (rs.next()){
+                   rijen = rs.getInt(1); 
+                }
+                
+            }
+            PreparedStatement queryGeefAlleScores = conn.prepareStatement("SELECT * FROM highscores ORDER BY score DESC");
+            try(ResultSet rs = queryGeefAlleScores.executeQuery()){
+                scores = new String[rijen][rs.getMetaData().getColumnCount() - 1];
+                int rij = 0;
+                while(rs.next()){
+                    scores[rij][0] = rs.getString("speler");
+                    scores[rij][1] = "" + rs.getInt("score");
+                    rij++;        
+                }
+            }
+            return scores;
+        }catch (SQLException ex){
+            for (Throwable t : ex){
+                t.printStackTrace();
+            }
+            return scores = new String[1][1];
         }
     }
 }

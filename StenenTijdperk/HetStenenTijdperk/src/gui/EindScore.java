@@ -33,11 +33,11 @@ public class EindScore extends StackPane {
     private Image spriteSheet = new Image(getClass().getResourceAsStream("/assets/spritesheetEindscore.png"));
     private Image gokuWint = new Image(getClass().getResourceAsStream("/assets/gokuWint.png")),
             gokuVerliest = new Image(getClass().getResourceAsStream("/assets/DefeatGoku.png")),
-            krillinWint = new Image(getClass().getResourceAsStream("/assets/gokuWint.png")),
+            krillinWint = new Image(getClass().getResourceAsStream("/assets/krillinWint.png")),
             krillinVerliest = new Image(getClass().getResourceAsStream("/assets/DefeatKrillin.png")),
             chiaotzuWint = new Image(getClass().getResourceAsStream("/assets/ChaiotzuWint.png")),
             chiaotzuVerliest = new Image(getClass().getResourceAsStream("/assets/DefeatChaiotzu.png")),
-            jackieChunWint = new Image(getClass().getResourceAsStream("/assets/gokuWint.png")),
+            jackieChunWint = new Image(getClass().getResourceAsStream("/assets/jackieWint.png")),
             jackieChunVerliest = new Image(getClass().getResourceAsStream("/assets/DefeatJackie.png"));
     private VBox characters[] = new VBox[4];
     private DomeinController dc;
@@ -72,7 +72,7 @@ public class EindScore extends StackPane {
         doorgaan.setTranslateX(450);
 
         doorgaan.setOnMouseClicked((MouseEvent event) -> {
-            hs.startScherm();
+            hs.startScherm(this);
         });
         loseAnimation = new Animation[infoEindscore.length - 1];
         for (int i = 1; i < infoEindscore.length; i++) {
@@ -153,12 +153,26 @@ public class EindScore extends StackPane {
                     winningAnimation.setCycleCount(Animation.INDEFINITE);
                     break;
                 case "krillin":
-                    characterView[0] = new ImageView(krillinVerliest);
-                    characterView[0].setViewport(new Rectangle2D(0, 0, 105, 165));
+                    characterView[0] = new ImageView(krillinWint);
+                    characterView[0].setViewport(new Rectangle2D(0, 0, 90, 165));
+                    winningAnimation = new SpriteAnimation(
+                        characterView[0],
+                        Duration.millis(400),
+                        3, 3,
+                        0, 0,
+                        90, 165
+                    );
                     break;
                 case "jackieChun":
-                    characterView[0] = new ImageView(jackieChunVerliest);
-                    characterView[0].setViewport(new Rectangle2D(0, 0, 164, 165));
+                    characterView[0] = new ImageView(jackieChunWint);
+                    characterView[0].setViewport(new Rectangle2D(0, 0, 127, 165));
+                    winningAnimation = new SpriteAnimation(
+                        characterView[0],
+                        Duration.millis(800),
+                        7, 7,
+                        0, 0,
+                        127, 165
+                    );
                     break;
                 case "chiaotzu":
                     characterView[0] = new ImageView(chiaotzuWint);

@@ -19,4 +19,7 @@ public class ScoreRepository {
     public boolean voegToe(Speler speler){
         return sm.voegScoreToe(speler);
     }
+    public String[][] geefAlleScores(){
+        return sm.geefAlleScores();
+    }
 }
