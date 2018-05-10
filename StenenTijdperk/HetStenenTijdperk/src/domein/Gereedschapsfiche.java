@@ -10,7 +10,7 @@ package domein;
  * @author jasperdesmet
  */
 public class Gereedschapsfiche {
-    private int kracht = 0;
+    private int kracht;
     private boolean gebruikt = false;
     public void verhoogKracht(){
         kracht++;

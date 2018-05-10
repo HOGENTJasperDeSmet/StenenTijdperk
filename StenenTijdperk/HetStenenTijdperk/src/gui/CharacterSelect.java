@@ -34,8 +34,10 @@ public class CharacterSelect extends StackPane{
     private boolean characters[] = new boolean[4], startFlag = false;
     private SpelBord spelbord;
     private DomeinController dc;
-    public CharacterSelect(DomeinController dc) {
+    private HoofdScherm hs;
+    public CharacterSelect(DomeinController dc,HoofdScherm hs) {
         this.dc = dc;
+        this.hs = hs;
         buildGui();
     }
     
@@ -78,7 +80,6 @@ public class CharacterSelect extends StackPane{
         });
         startenTekst.setOnMouseClicked((MouseEvent event) -> {
             int index = 0;
-            System.out.println(index);
             String[][] namen = new String[aantalSpelers][2];
             if(!naamKrillin.getText().equals("")){
                 namen[index][0] = naamKrillin.getText();
@@ -101,9 +102,9 @@ public class CharacterSelect extends StackPane{
                 index++;
             }
             dc.startSpel(namen);
-            spelbord = new SpelBord(dc);
-            getChildren().add(spelbord);
-            System.out.println(dc.geefSpelbord());
+            
+            hs.startSpel();
+            
         });
         startenTekst.setPickOnBounds(true);
         

@@ -6,12 +6,9 @@
 package gui;
 
 import domein.DomeinController;
-import java.nio.file.Paths;
 import javafx.animation.Animation;
 import javafx.animation.FadeTransition;
 import javafx.animation.Interpolator;
-import javafx.animation.PathTransition;
-import javafx.animation.Timeline;
 import javafx.animation.TranslateTransition;
 import javafx.application.Platform;
 import javafx.geometry.Insets;
@@ -25,14 +22,8 @@ import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.StackPane;
 import javafx.scene.layout.VBox;
-import javafx.scene.media.Media;
-import javafx.scene.media.MediaPlayer;
-import javafx.scene.shape.LineTo;
-import javafx.scene.shape.MoveTo;
-import javafx.scene.shape.Path;
 import javafx.stage.Stage;
 import javafx.util.Duration;
-
 /**
  *
  * @author Jasper
@@ -41,63 +32,22 @@ public class StartScherm extends StackPane {
 
     private double xOffset = 0;
     private double yOffset = 0;
-    private ImageView backgroundImage = new ImageView(new Image(getClass().getResourceAsStream("/assets/backdropSky.gif")));
     private ImageView korinTower = new ImageView(new Image(getClass().getResourceAsStream("/assets/korinTower.png")));
     private Image textSprites = new Image(getClass().getResourceAsStream("/assets/text.png"));
     private Image gokuHelicopter = new Image(getClass().getResourceAsStream("/assets/gokuHelicopter1.png"));
     private ImageView sluiten, logo, start, hervat, score;
-    private Stage primaryStage;
     private DomeinController dc;
     private BorderPane bp = new BorderPane();
-    private CharacterSelect cs;
-    public StartScherm(Stage primaryStage,DomeinController dc) {
-        this.primaryStage = primaryStage;
+    private CharacterSelect cs; 
+    private HoofdScherm hs;
+    public StartScherm(DomeinController dc, HoofdScherm hs) {
         this.dc = dc;
+        this.hs = hs;
         buildGui();
     }
     
     private void buildGui() {
-        //animations
-        Path path = new Path();
-        path.getElements().add(new MoveTo(0, 270));
-        path.getElements().add(new LineTo(2260, 270));
-        PathTransition pathTransition = new PathTransition();
-        pathTransition.setDuration(Duration.millis(64000));
-        pathTransition.setPath(path);
-        pathTransition.setNode(backgroundImage);
-        pathTransition.setInterpolator(Interpolator.LINEAR);
-        pathTransition.setCycleCount(Timeline.INDEFINITE);
-        pathTransition.play();
 
-        //menubar handmatig maken voor eigen design
-        StackPane menubar = new StackPane();
-        menubar.setMaxHeight(20);
-        menubar.setOnMousePressed((MouseEvent event) -> {
-            xOffset = event.getSceneX();
-            yOffset = event.getSceneY();
-        });
-        menubar.setOnMouseDragged((MouseEvent event) -> {
-            primaryStage.setX(event.getScreenX() - xOffset);
-            primaryStage.setY(event.getScreenY() - yOffset);
-        });
-
-        //sluiten knop maken
-        sluiten = new ImageView(textSprites);
-        sluiten.setViewport(new Rectangle2D(451, 0, 22, 31));
-        sluiten.setOnMouseClicked((MouseEvent event) -> {
-            Platform.exit();
-
-        });
-        sluiten.setOnMouseEntered((MouseEvent event) -> {
-            this.setCursor(Cursor.HAND); //Change cursor to hand
-        });
-        sluiten.setOnMouseExited((MouseEvent event) -> {
-            this.setCursor(Cursor.DEFAULT); //Change cursor to hand
-        });
-
-        menubar.setAlignment(Pos.TOP_RIGHT);
-        menubar.setPadding(new Insets(20, 20, 20, 20));
-        menubar.getChildren().addAll(sluiten);
         //gokuHelicopter
         final ImageView gokuHelicopterIv = new ImageView(gokuHelicopter);
         gokuHelicopterIv.setViewport(new Rectangle2D(1,0,102,80));
@@ -121,6 +71,7 @@ public class StartScherm extends StackPane {
         gokuHelicopterAnimationTranslation.setOnFinished(actionEvent -> {
                 gokuHelicopterAnimationTranslation.play();
         });
+        
         //rechterkant scherm
         HBox right = new HBox(10);
         right.setMaxHeight(0);
@@ -142,11 +93,6 @@ public class StartScherm extends StackPane {
         menu.setMaxWidth(0);
         left.getChildren().add(logo);
         left.getChildren().add(menu);
-        //mediaplayer 
-        String bip = "src/assets/bmm.wav";
-        Media hit = new Media(Paths.get(bip).toUri().toString());
-        MediaPlayer mediaPlayer = new MediaPlayer(hit);
-        mediaPlayer.setVolume(0.05);
         
         //start knop
         start = new ImageView(textSprites);
@@ -177,10 +123,9 @@ public class StartScherm extends StackPane {
             translation.play();
             translation.setOnFinished(ActionEvent -> {
                 this.getChildren().add(cs);
-                menubar.toFront();
             });
             gokuHelicopterAnimationTranslation.setOnFinished(null);
-            cs = new CharacterSelect(dc);
+            cs = new CharacterSelect(dc,hs);
             
         });
         menu.getChildren().add(start);
@@ -198,7 +143,31 @@ public class StartScherm extends StackPane {
             hervat.setViewport(new Rectangle2D(2, 168, 300, 46));
             //mediaPlayer.stop();
         });
-        menu.getChildren().add(hervat);
+        hervat.setOnMouseClicked((MouseEvent event) -> {
+            this.setCursor(Cursor.DEFAULT); //Change cursor to hand
+            hervat.setViewport(new Rectangle2D(2, 168, 300, 46));
+            Image test = new Image(getClass().getResourceAsStream("/assets/kamehameha.png"));
+        ImageView testView = new ImageView(test);
+        testView.setViewport(new Rectangle2D(1,0,960,80));
+        final Animation testAnimation = new SpriteAnimation(
+                testView,
+                Duration.millis(500),
+                18, 1,
+                0, 0,
+                960, 80
+        );
+        testAnimation.setCycleCount(1);
+        testAnimation.play();
+        TranslateTransition tt = new TranslateTransition(Duration.millis(100), testView);
+        tt.setByX(4);
+        tt.setFromY(-1);
+        tt.setToY(1);
+        tt.setCycleCount(Animation.INDEFINITE);
+        tt.setAutoReverse(true);
+        tt.playFromStart();
+        this.getChildren().add(testView);
+        });
+           menu.getChildren().add(hervat);     
         //score knop
         score = new ImageView(textSprites);
         score.setViewport(new Rectangle2D(2, 216, 300, 46));
@@ -211,17 +180,16 @@ public class StartScherm extends StackPane {
             this.setCursor(Cursor.DEFAULT); //Change cursor to hand
             score.setViewport(new Rectangle2D(2, 216, 300, 46));
         });
+        score.setOnMouseClicked((MouseEvent event) -> {
+            EindScore daskl = new EindScore(dc,"Goku",hs);
+            this.getChildren().add(daskl);
+        });
         menu.getChildren().add(score);
 
         //elementen toevoegen aan borderpane
         bp.setLeft(left);
         bp.setRight(right);
         bp.setMargin(right, new Insets(0, 80, 0, 0));
-
-        this.setAlignment(Pos.TOP_LEFT);
-        this.getChildren().add(backgroundImage);
         this.getChildren().add(bp);
-        this.getChildren().add(menubar);
-
     }
 }

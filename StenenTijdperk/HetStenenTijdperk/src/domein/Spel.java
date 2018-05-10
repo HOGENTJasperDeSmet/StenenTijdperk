@@ -336,7 +336,17 @@ public class Spel {
         }
         return Eindscore;
     }
-
+    public String[][] geefInfoEindscore(){
+        String[][] infoEindscore = new String[spelers.size()][3];
+        int i = 0;
+        for(Speler s : spelers){
+            infoEindscore[i][0] = s.getNaam();
+            infoEindscore[i][1] = s.getCharacter();
+            infoEindscore[i][2] = "" + s.getScore();
+            i++;
+        }
+        return infoEindscore;
+    }
     public void berekenEindscore() {
         for(Speler s : spelers){
             s.BerekenEindscore();
@@ -351,11 +361,11 @@ public class Spel {
         String[][] infoKaarten = new String[4][4];
        
            for(int i = 0;i < 4; i ++){
-                if(eindeSpel){
-                    infoKaarten[i][0] = "99";
-                    infoKaarten[i][1] = "goud";
-                    infoKaarten[i][2] = "goud";
-                    infoKaarten[i][3] = "goud";
+                if(geefIndexActieveHutkaart(i) == -1){
+                    infoKaarten[i][0] = "einde";
+                    infoKaarten[i][1] = "";
+                    infoKaarten[i][2] = "";
+                    infoKaarten[i][3] = "";
                 } else {
                     infoKaarten[i][0] = "" + stapels[i][geefIndexActieveHutkaart(i)].berekenWaarde();
                     infoKaarten[i][1] = "" + stapels[i][geefIndexActieveHutkaart(i)].geefKost1naam();
@@ -372,10 +382,16 @@ public class Spel {
         return spelerAanZet.getSpelerNummer();
     }
 
-    int[] geefSpelerGereedschap(int i) {
+    public int[] geefSpelerGereedschap(int i) {
         return spelers.get(i).geefGereedschap();
     }
+    public boolean[] geefSpelerGereedschapGebruikt(int i) {
+        return spelers.get(i).geefSpelerGereedschapGebruikt(i);
+    }
 
+    public void verwijderVanPlaats(int plaats) {
+        spelerAanZet.verwijderStamledenVanPlaats(acties.get(plaats));
+    }
     
 
 

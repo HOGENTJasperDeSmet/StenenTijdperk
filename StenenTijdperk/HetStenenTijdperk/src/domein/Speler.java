@@ -16,10 +16,10 @@ public class Speler {
     private final int spelerNummer;
     private int voedselProductie,
             aantalVoedsel = 12,
-            aantalGoud,
-            aantalSteen,
-            aantalLeem,
-            aantalHout,
+            aantalGoud = 100,
+            aantalSteen = 100,
+            aantalLeem = 100,
+            aantalHout = 100,
             score,
             geplaatsteStamleden;
     private String naam, character;
@@ -293,8 +293,9 @@ public class Speler {
     public int[] geefGereedschap() {
         return new int[]{gereedschappen[0].getKracht(),gereedschappen[1].getKracht(),gereedschappen[2].getKracht()};
     }
-
-
+    public boolean[] geefSpelerGereedschapGebruikt(int i) {
+        return new boolean[]{gereedschappen[0].getGebruikt(),gereedschappen[1].getGebruikt(),gereedschappen[2].getGebruikt()};
+    }
 
 
 

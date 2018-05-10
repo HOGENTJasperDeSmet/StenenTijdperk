@@ -40,19 +40,21 @@ public class SpelBord extends StackPane {
     private Image jackieChun = new ImageCharacter(getClass().getResourceAsStream("/assets/jackieChunStaan.png"), "jackieChun");
     private Image characterFacesSmall = new Image(getClass().getResourceAsStream("/assets/characterFacesSmall.png"));
     private int[] bezettePlaatsen;
+    private boolean[] gereedschap = {false, false, false};
     private int[] bezettePlaatsenVorigeBeurt;
     private int SpelerAanZetNummer, laatstGezettePlaats = -1, spelersDieActiesHebbenVoltooid = 0, spelersDieStamledenHebbenGevoed = 0, geworpenOgen;
     private meldingPopup melding;
+    private HoofdScherm hs;
 
-    public SpelBord(DomeinController dc) {
+    public SpelBord(DomeinController dc,HoofdScherm hs) {
         this.dc = dc;
+        this.hs = hs;
         buildGui();
     }
 
     private void buildGui() {
         //spelerAanZetNummer
         SpelerAanZetNummer = dc.geefSpelerAanZetSpelerNummer();
-        System.out.println(dc.geefSpelbord());
         //kaart
         kaartView = new ImageView(new Image(getClass().getResourceAsStream("/assets/map.png")));
         kaartView.setImage(new Image(getClass().getResourceAsStream("/assets/map.png")));
@@ -95,7 +97,7 @@ public class SpelBord extends StackPane {
                     gereedschappenView[i].setViewport(new Rectangle2D(0, 118, 133, 22));
                     break;
                 case 3:
-                    gereedschappenView[i].setViewport(new Rectangle2D(0, 133, 133, 22));
+                    gereedschappenView[i].setViewport(new Rectangle2D(0, 140, 133, 22));
                     break;
             }
 
@@ -347,7 +349,7 @@ public class SpelBord extends StackPane {
         hutkaartenInhoud = new HBox[4];
         hutkaarten = new VBox();
         String[][] info = dc.geefInfoKaarten();
-        kost = new ImageView[4][3];
+        kost = new ImageView[4][4];
         waarde = new Text[4];
         for (int i = 0; i < hutkaart.length; i++) {
             hutkaart[i] = new StackPane();
@@ -355,19 +357,18 @@ public class SpelBord extends StackPane {
 
             ImageView kader = new ImageView(uiSpriteSheet);
             kader.setViewport(new Rectangle2D(0, 0, 138, 26));
-            ImageView dragonball = new ImageView(uiSpriteSheet);
-            dragonball.setViewport(new Rectangle2D(2, 74, 21, 22));
+            kost[i][0] = new ImageView(uiSpriteSheet);
+            kost[i][0].setViewport(new Rectangle2D(0, 74, 21, 22));
+            kost[i][1] = new ImageView(new Image(getClass().getResourceAsStream("/assets/" + info[i][1].toLowerCase() + ".png")));
+            kost[i][2] = new ImageView(new Image(getClass().getResourceAsStream("/assets/" + info[i][2].toLowerCase() + ".png")));
+            kost[i][3] = new ImageView(new Image(getClass().getResourceAsStream("/assets/" + info[i][3].toLowerCase() + ".png")));
 
-            kost[i][0] = new ImageView(new Image(getClass().getResourceAsStream("/assets/" + info[i][1].toLowerCase() + ".png")));
-            kost[i][1] = new ImageView(new Image(getClass().getResourceAsStream("/assets/" + info[i][2].toLowerCase() + ".png")));
-            kost[i][2] = new ImageView(new Image(getClass().getResourceAsStream("/assets/" + info[i][3].toLowerCase() + ".png")));
-            dragonball.setViewport(new Rectangle2D(0, 74, 21, 22));
             waarde[i] = new Text(info[i][0]);
             waarde[i].setFont(Font.font("Karma future", 16));
 
             hutkaartenInhoud[i].setMaxWidth(0);
             hutkaartenInhoud[i].setMaxHeight(0);
-            hutkaartenInhoud[i].getChildren().addAll(dragonball, kost[i][0], kost[i][1], kost[i][2], waarde[i]);
+            hutkaartenInhoud[i].getChildren().addAll(kost[i][0], kost[i][1], kost[i][2], kost[i][3], waarde[i]);
 
             hutkaart[i].getChildren().addAll(kader, hutkaartenInhoud[i]);
             hutkaarten.getChildren().addAll(hutkaart[i]);
@@ -599,6 +600,18 @@ public class SpelBord extends StackPane {
         }
     }
 
+    public void gereedSchapKlikken(int view, int power, MouseEvent event) {
+        if (gereedschap[view]) {
+            geworpenOgen -= power;
+
+            gereedschappenView[view].setViewport(new Rectangle2D(0, 96 + ((power - 1) * 22), 133, 22));
+        } else {
+            geworpenOgen += power;
+            gereedschappenView[view].setViewport(new Rectangle2D(0, 377 + ((power - 1) * 22), 133, 22));
+        }
+        gereedschap[view] = !gereedschap[view];
+    }
+
     public void uiUpdate() {
         switch (dc.geefSpelerKarakter(SpelerAanZetNummer - 1)) {
             case "goku":
@@ -616,22 +629,28 @@ public class SpelBord extends StackPane {
         }
 
         int[] gereedschap = dc.geefSpelerGereedschap(SpelerAanZetNummer - 1);
+        boolean[] gereedschapGebruikt = dc.geefSpelerGereedschapGebruikt(SpelerAanZetNummer - 1);
 
         for (int i = 0; i < gereedschappenView.length; i++) {
-            switch (gereedschap[i]) {
-                case 0:
-                    gereedschappenView[i].setViewport(new Rectangle2D(0, 162, 133, 22));
-                    break;
-                case 1:
-                    gereedschappenView[i].setViewport(new Rectangle2D(0, 96, 133, 22));
-                    break;
-                case 2:
-                    gereedschappenView[i].setViewport(new Rectangle2D(0, 118, 133, 22));
-                    break;
-                case 3:
-                    gereedschappenView[i].setViewport(new Rectangle2D(0, 133, 133, 22));
-                    break;
+            if (!gereedschapGebruikt[i]) {
+                switch (gereedschap[i]) {
+                    case 0:
+                        gereedschappenView[i].setViewport(new Rectangle2D(0, 162, 133, 22));
+                        break;
+                    case 1:
+                        gereedschappenView[i].setViewport(new Rectangle2D(0, 96, 133, 22));
+                        break;
+                    case 2:
+                        gereedschappenView[i].setViewport(new Rectangle2D(0, 118, 133, 22));
+                        break;
+                    case 3:
+                        gereedschappenView[i].setViewport(new Rectangle2D(0, 140, 133, 22));
+                        break;
+                }
+            } else {
+                gereedschappenView[i].setViewport(new Rectangle2D(0, 162, 133, 22));
             }
+
         }
 
         int[] grondstoffenSpeler = dc.geefGrondstoffenSpelerAanZet();
@@ -656,10 +675,20 @@ public class SpelBord extends StackPane {
         }
         String[][] info = dc.geefInfoKaarten();
         for (int i = 0; i < hutkaart.length; i++) {
-            kost[i][0].setImage(new Image(getClass().getResourceAsStream("/assets/" + info[i][1].toLowerCase() + ".png")));
-            kost[i][1].setImage(new Image(getClass().getResourceAsStream("/assets/" + info[i][2].toLowerCase() + ".png")));
-            kost[i][2].setImage(new Image(getClass().getResourceAsStream("/assets/" + info[i][3].toLowerCase() + ".png")));;
-            waarde[i].setText(info[i][0]);
+            if (info[i][0] == "einde") {
+                kost[i][0].setImage(null);
+                kost[i][1].setImage(null);
+                kost[i][2].setImage(null);
+                kost[i][3].setImage(null);
+                waarde[i].setText("");
+            } else {
+                kost[i][0].setViewport(new Rectangle2D(0 + (21 * dc.geefActieveKaartVanStapel(i)), 74, 21, 22));
+                kost[i][1].setImage(new Image(getClass().getResourceAsStream("/assets/" + info[i][1].toLowerCase() + ".png")));
+                kost[i][2].setImage(new Image(getClass().getResourceAsStream("/assets/" + info[i][2].toLowerCase() + ".png")));
+                kost[i][3].setImage(new Image(getClass().getResourceAsStream("/assets/" + info[i][3].toLowerCase() + ".png")));
+                waarde[i].setText(info[i][0]);
+            }
+
         }
     }
 
@@ -713,7 +742,8 @@ public class SpelBord extends StackPane {
                     }
                 } catch (IllegalArgumentException iae) {
                     melding = new meldingPopup(iae.getMessage(), this);
-                    uiLayout.setTop(melding);
+                    this.getChildren().add(melding);
+                    StackPane.setAlignment(melding, Pos.TOP_LEFT);
                 }
 
             }
@@ -732,7 +762,7 @@ public class SpelBord extends StackPane {
         }
     }
 
-    public void doeActie(int plaats) {
+    public void doeActie(int plaats, MouseEvent ev) {
         Random rand = new Random();
         int worp;
         geworpenOgen = 0;
@@ -742,17 +772,14 @@ public class SpelBord extends StackPane {
             actieIsValid = dc.ActieIsValid(plaats);
         } catch (IllegalArgumentException iae) {
             melding = new meldingPopup(iae.getMessage(), this);
-            uiLayout.setTop(melding);
+            this.getChildren().add(melding);
+            StackPane.setAlignment(melding, Pos.TOP_LEFT);
         }
         if (actieIsValid) {
             switch (plaats) {
                 case 0:
                 case 1:
                 case 3:
-                case 8:
-                case 9:
-                case 10:
-                case 11:
                     try {
                         verwijderVanPlaats(plaats);
                         dc.doeActie(plaats);
@@ -778,10 +805,61 @@ public class SpelBord extends StackPane {
                             }
                         }
                         melding = new meldingPopup(iae.getMessage(), this);
-                        uiLayout.setTop(melding);
-
+                        this.getChildren().add(melding);
+                        StackPane.setAlignment(melding, Pos.TOP_LEFT);
                     }
                     break;
+                case 8:
+                case 9:
+                case 10:
+                case 11:
+                    if (ev.getButton() == MouseButton.SECONDARY) {
+                        verwijderVanPlaats(plaats);
+                        dc.verwijderVanPlaats(plaats);
+                        if (dc.alleActiesUitgevoerdSpelerAanZet()) {
+                            verhoogSpelersDieActiesHebbenVoltooid();
+                            if (spelersDieActiesHebbenVoltooid == dc.geefAantalSpelers()) {
+                                voedselFase();
+                            } else {
+                                dc.volgendeSpeler();
+                                SpelerAanZetNummer = dc.geefSpelerAanZetSpelerNummer();
+                            }
+                        }
+                        melding = new meldingPopup("Actie niet uigevoerd", this);
+                        this.getChildren().add(melding);
+                        StackPane.setAlignment(melding, Pos.TOP_LEFT);
+                        uiUpdate();
+                    } else {
+                        try {
+                            verwijderVanPlaats(plaats);
+                            dc.doeActie(plaats);
+                            if (dc.alleActiesUitgevoerdSpelerAanZet()) {
+                                verhoogSpelersDieActiesHebbenVoltooid();
+                                if (spelersDieActiesHebbenVoltooid == dc.geefAantalSpelers()) {
+                                    voedselFase();
+                                } else {
+                                    dc.volgendeSpeler();
+                                    SpelerAanZetNummer = dc.geefSpelerAanZetSpelerNummer();
+                                }
+
+                            }
+                            uiUpdate();
+                        } catch (IllegalArgumentException iae) {
+                            if (dc.alleActiesUitgevoerdSpelerAanZet()) {
+                                verhoogSpelersDieActiesHebbenVoltooid();
+                                if (spelersDieActiesHebbenVoltooid == dc.geefAantalSpelers()) {
+                                    voedselFase();
+                                } else {
+                                    dc.volgendeSpeler();
+                                    SpelerAanZetNummer = dc.geefSpelerAanZetSpelerNummer();
+                                }
+                            }
+                            melding = new meldingPopup(iae.getMessage(), this);
+                            this.getChildren().add(melding);
+                            StackPane.setAlignment(melding, Pos.TOP_LEFT);
+                        }
+                    }
+                break;
                 default:
                     geworpen = String.format("Je werpt voor ");
                     worp = rand.nextInt(6) + 1;
@@ -793,10 +871,20 @@ public class SpelBord extends StackPane {
                     }
                     if (dc.spelerAanZetHeeftOngebruiktGereedschap()) {
                         geworpen += String.format("en %d.%nVoor een totaal van %d.%nSelecteer de training die je wil gebruiken door er op te klikken", worp, geworpenOgen);
-//                        Popup popup = new Popup(geworpen, uiSpriteSheet, true, dc, this, plaats, geworpenOgen);
-//                        this.getChildren().add(popup);
-                        melding = new meldingPopup(geworpen, this, true);
-                        uiLayout.setTop(melding);
+                        melding = new meldingPopup(geworpen, this, true, true);
+                        this.getChildren().add(melding);
+                        StackPane.setAlignment(melding, Pos.TOP_LEFT);
+                        int[] gereedschap = dc.geefSpelerGereedschap(SpelerAanZetNummer - 1);
+
+                        for (int i = 0; i < gereedschappenView.length; i++) {
+                            if (gereedschap[i] > 0) {
+                                int o = i, power = gereedschap[i];
+                                gereedschappenView[i].setOnMouseClicked((MouseEvent event) -> {
+                                    gereedSchapKlikken(o, power, event);
+                                });
+                            }
+                        }
+
                         switch (plaats) {
                             case 2:
                                 jacht.setOnMouseClicked((MouseEvent event) -> {
@@ -809,17 +897,17 @@ public class SpelBord extends StackPane {
                                 });
                                 break;
                             case 5:
-                                bos.setOnMouseClicked((MouseEvent event) -> {
+                                leemgroeve.setOnMouseClicked((MouseEvent event) -> {
                                     doeActieOgen(plaats);
                                 });
                                 break;
                             case 6:
-                                bos.setOnMouseClicked((MouseEvent event) -> {
+                                steengroeve.setOnMouseClicked((MouseEvent event) -> {
                                     doeActieOgen(plaats);
                                 });
                                 break;
                             case 7:
-                                bos.setOnMouseClicked((MouseEvent event) -> {
+                                rivier.setOnMouseClicked((MouseEvent event) -> {
                                     doeActieOgen(plaats);
                                 });
                                 break;
@@ -828,6 +916,8 @@ public class SpelBord extends StackPane {
                         geworpen += String.format("en %d.%nVoor een totaal van %d.", worp, geworpenOgen);
                         melding = new meldingPopup(geworpen, this, true);
                         uiLayout.setTop(melding);
+                        this.getChildren().add(melding);
+                        StackPane.setAlignment(melding, Pos.TOP_LEFT);
                         doeActieOgen(plaats);
                     }
             }
@@ -838,6 +928,13 @@ public class SpelBord extends StackPane {
     public void doeActieOgen(int plaats) {
         dc.doeActie(plaats, geworpenOgen);
         verwijderVanPlaats(plaats);
+        for (int i = 0; i < gereedschap.length; i++) {
+            if (gereedschap[i]) {
+                dc.gebruikGereedschapfiche(i + 1);
+                gereedschap[i] = !gereedschap[i];
+            }
+            gereedschappenView[i].setOnMouseClicked(null);
+        }
         if (dc.alleActiesUitgevoerdSpelerAanZet()) {
             verhoogSpelersDieActiesHebbenVoltooid();
             if (getspelersDieActiesHebbenVoltooid() == dc.geefAantalSpelers()) {
@@ -845,6 +942,11 @@ public class SpelBord extends StackPane {
             } else {
                 dc.volgendeSpeler();
                 setSpelerAanZetNummer(dc.geefSpelerAanZetSpelerNummer());
+            }
+        }
+        if (this.getChildren().contains(melding)) {
+            if (melding.getDuration()) {
+                this.getChildren().remove(melding);
             }
         }
         uiUpdate();
@@ -865,10 +967,8 @@ public class SpelBord extends StackPane {
                 this.getChildren().add(voedsel);
             }
         } else if (dc.eindeSpel()) {
-            System.out.println("EINDE SPEL BEREIKT");
             dc.berekenEindscore();
-            EindScore eindscherm = new EindScore(dc, dc.bepaalWinnaar());
-            this.getChildren().add(eindscherm);
+            hs.toonEindScore();
         } else {
             dc.nieuweRonde();
             uiUpdate();
@@ -934,41 +1034,44 @@ public class SpelBord extends StackPane {
     }
 
     public void actieFase() {
+        melding = new meldingPopup("Actiefase begonnen", this, true);
+        this.getChildren().add(melding);
+        StackPane.setAlignment(melding, Pos.TOP_LEFT);
         bos.setOnMouseClicked((MouseEvent event) -> {
-            doeActie(4);
+            doeActie(4, event);
         });
         leemgroeve.setOnMouseClicked((MouseEvent event) -> {
-            doeActie(5);
+            doeActie(5, event);
         });
         steengroeve.setOnMouseClicked((MouseEvent event) -> {
-            doeActie(6);
+            doeActie(6, event);
         });
         rivier.setOnMouseClicked((MouseEvent event) -> {
-            doeActie(7);
+            doeActie(7, event);
         });
         hut.setOnMouseClicked((MouseEvent event) -> {
-            doeActie(1);
+            doeActie(1, event);
         });
         akker.setOnMouseClicked((MouseEvent event) -> {
-            doeActie(0);
+            doeActie(0, event);
         });
         gereedschapsmaker.setOnMouseClicked((MouseEvent event) -> {
-            doeActie(3);
+            doeActie(3, event);
         });
         jacht.setOnMouseClicked((MouseEvent event) -> {
-            doeActie(2);
+            doeActie(2, event);
         });
         stapel1.setOnMouseClicked((MouseEvent event) -> {
-            doeActie(8);
+            doeActie(8, event);
         });
         stapel2.setOnMouseClicked((MouseEvent event) -> {
-            doeActie(9);
+            doeActie(9, event);
         });
         stapel3.setOnMouseClicked((MouseEvent event) -> {
-            doeActie(10);
+            doeActie(10, event);
         });
         stapel4.setOnMouseClicked((MouseEvent event) -> {
-            doeActie(11);
+            doeActie(11, event);
         });
     }
 }

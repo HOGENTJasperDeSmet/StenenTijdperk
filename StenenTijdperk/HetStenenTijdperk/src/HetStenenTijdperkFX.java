@@ -6,7 +6,7 @@
 
 
 import domein.DomeinController;
-import gui.StartScherm;
+import gui.HoofdScherm;
 import javafx.application.Application;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
@@ -17,12 +17,10 @@ import javafx.stage.StageStyle;
  * @author Jasper
  */
 public class HetStenenTijdperkFX extends Application {
-    
     @Override
     public void start(Stage primaryStage) {
         DomeinController dc = new DomeinController();
-        StartScherm root = new StartScherm(primaryStage,dc);
-        
+        HoofdScherm root = new HoofdScherm(dc,primaryStage);
         Scene scene = new Scene(root, 960, 540);
         primaryStage.initStyle(StageStyle.UNDECORATED);
         primaryStage.setTitle("Stenen tijdperk"); 
@@ -37,5 +35,4 @@ public class HetStenenTijdperkFX extends Application {
         launch(args);
         
     }
-    
 }

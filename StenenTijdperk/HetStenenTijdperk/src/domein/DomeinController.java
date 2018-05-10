@@ -167,4 +167,15 @@ public class DomeinController {
     public int[] geefSpelerGereedschap(int i) {
         return spel.geefSpelerGereedschap(i);
     }
+    public boolean[] geefSpelerGereedschapGebruikt(int i) {
+        return spel.geefSpelerGereedschapGebruikt(i);
+    }
+
+    public int geefActieveKaartVanStapel(int i) {
+        return spel.geefIndexActieveHutkaart(i);
+    }
+
+    public void verwijderVanPlaats(int plaats) {
+        spel.verwijderVanPlaats(plaats);
+    }
 }
