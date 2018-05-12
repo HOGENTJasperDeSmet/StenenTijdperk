@@ -12,6 +12,7 @@ package domein;
 public class DomeinController {
     private Spel spel;
     private ScoreRepository sr = new ScoreRepository();
+    private SpelRepository spr = new SpelRepository();
     public String[][] geefHighScores(){
         return sr.geefAlleScores();
     }
@@ -186,5 +187,23 @@ public class DomeinController {
     public String[][] geefInfoEindscore() {
         //return new String[][] {{"Goku","krillin","100"},{"Krillin","goku","90"},{"Krillin","jackieChun","80"},{"Krillin","chiaotzu","80"}};
         return spel.geefInfoEindscore();
+    }
+    public boolean bestaandSpel(){
+        return spel.heeftId();
+    }
+    public void slaSpelOp() {
+        if(spel.heeftId()){
+            spr.slaSpelOp(spel);
+        }
+    }
+    public void slaSpelOp(String naam){
+        spr.slaNieuwSpelOp(spel,naam);
+    }
+    public void startOpgeslagenSpel(int spelId){
+        spel = spr.geefOpgeslagenSpel(spelId);
+    }
+
+    public String[][] geefSpellen() {
+        return spr.geefAlleSpellen();
     }
 }

@@ -12,6 +12,12 @@ package domein;
 public class Gereedschapsfiche {
     private int kracht;
     private boolean gebruikt = false;
+    public Gereedschapsfiche(){
+        
+    }
+    public Gereedschapsfiche(int kracht){
+        this.kracht = kracht;
+    }
     public void verhoogKracht(){
         kracht++;
     }

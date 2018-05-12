@@ -16,10 +16,10 @@ public class Speler {
     private final int spelerNummer;
     private int voedselProductie,
             aantalVoedsel = 12,
-            aantalGoud = 100,
-            aantalSteen = 100,
-            aantalLeem = 100,
-            aantalHout = 100,
+            aantalGoud,
+            aantalSteen,
+            aantalLeem,
+            aantalHout,
             score,
             geplaatsteStamleden;
     private String naam, character;
@@ -36,6 +36,25 @@ public class Speler {
         gereedschappen[0] = new Gereedschapsfiche();
         gereedschappen[1] = new Gereedschapsfiche();
         gereedschappen[2] = new Gereedschapsfiche();
+    }
+    public Speler(int spelerNummer, String naam, String character, int aantalVoedsel,
+            int aantalHout, int aantalLeem,int aantalSteen,int aantalGoud, int score,
+            int voedselproductie, int aantalStamleden, int kracht1, int kracht2, int kracht3){
+        this.spelerNummer = spelerNummer;
+        this.naam = naam;
+        this.character = character;
+        this.aantalVoedsel = aantalVoedsel;
+        this.aantalHout = aantalHout;
+        this.aantalLeem = aantalLeem;
+        this.aantalSteen = aantalSteen;
+        this.aantalGoud = aantalGoud;
+        this.voedselProductie = voedselproductie;
+        for(int i = 0; i < aantalStamleden; i++){
+           stamleden.add(new Stamlid()); 
+        }
+        gereedschappen[0] = new Gereedschapsfiche(kracht1);
+        gereedschappen[1] = new Gereedschapsfiche(kracht2);
+        gereedschappen[2] = new Gereedschapsfiche(kracht3);
     }
     public Speler(int spelerNummer,String naam , String character){
         this.spelerNummer = spelerNummer;

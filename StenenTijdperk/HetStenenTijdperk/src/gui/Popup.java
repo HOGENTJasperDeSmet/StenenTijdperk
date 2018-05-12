@@ -76,37 +76,4 @@ public class Popup extends StackPane {
         sb.getChildren().remove(this);
     }
 
-    /*public void actie() {
-        do {
-            int gereedschapsfiche = 0;
-            do {
-                try {
-                    System.out.print("Welke gereedschapsfiche wil je gebruiken: ");
-                    gereedschapsfiche = input.nextInt();
-                    domeinController.gereedschapsficheIsValid(gereedschapsfiche);
-                    flagGereedschapsfiche = false;
-                } catch (IllegalArgumentException e) {
-                    System.out.println(e.getMessage());
-                } catch (Exception e) {
-                    System.out.println("Dit is geen gereedschapsfiche");
-                }
-            } while (flagGereedschapsfiche);
-            System.out.println("Gereedschapsfiche gekozen");
-            geworpenOgen += domeinController.gebruikGereedschapfiche(gereedschapsfiche);
-            if (domeinController.spelerAanZetHeeftOngebruiktGereedschap()) {
-                do {
-                    System.out.printf("Wil je nog een gereedschapsfiche gebruiken?(Ja of Neen): ");
-                    invoer = input.next();
-                    invoer = invoer.toLowerCase();
-                    if ("neen".equals(invoer)) {
-                        flagExtraGereedschap = false;
-                    }
-                } while (!"ja".equals(invoer) && !"neen".equals(invoer));
-            } else {
-                flagExtraGereedschap = false;
-            }
-        } while (flagExtraGereedschap);
-
-    }
-}*/
 }

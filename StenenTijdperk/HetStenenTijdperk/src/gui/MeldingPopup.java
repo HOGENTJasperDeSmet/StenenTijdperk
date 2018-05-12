@@ -19,12 +19,12 @@ import javafx.util.Duration;
  *
  * @author jasperdesmet
  */
-public class meldingPopup extends StackPane{
+public class MeldingPopup extends StackPane{
     private Text melding;
     private SpelBord sp;
     private PauseTransition delay;
     private boolean duration;
-    public meldingPopup(String text,SpelBord sp){
+    public MeldingPopup(String text,SpelBord sp){
         melding = new Text(text);
         this.sp = sp;
         
@@ -54,12 +54,12 @@ public class meldingPopup extends StackPane{
         });
         ft.setOnFinished( event ->  delay.play());
     }
-    public meldingPopup(String text,SpelBord sp,boolean kleur){
+    public MeldingPopup(String text,SpelBord sp,boolean kleur){
         this(text,sp);
         this.setStyle("-fx-background-color: #28a745;-fx-border-radius: 4; -fx-background-radius: 4;");
     }
 
-    public meldingPopup(String text, SpelBord sp, boolean kleur, boolean indefinte) {
+    public MeldingPopup(String text, SpelBord sp, boolean kleur, boolean indefinte) {
         this(text,sp,kleur);
         delay.setOnFinished(null);
         duration = indefinte;

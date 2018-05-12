@@ -15,6 +15,10 @@ public class Hutkaart extends Actie{
     private Grondstof[] kosten = new Grondstof[3];
     private int stapel;
     boolean actief;
+    public Hutkaart(ArrayList<Grondstof> kosten, int stapel, boolean actief){
+        this(kosten, stapel);
+        this.actief = actief;
+    }
     public Hutkaart(ArrayList<Grondstof> kosten, int stapel) {
         super(1);
         this.kosten[0] = kosten.get(0);

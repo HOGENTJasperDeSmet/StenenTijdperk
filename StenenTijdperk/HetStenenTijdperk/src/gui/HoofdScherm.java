@@ -42,6 +42,8 @@ public class HoofdScherm extends StackPane{
     private DomeinController dc;
     private StackPane menubar;
     private Highscores hs;
+    private SpelHervatten sh;
+    private PopupOpslaan po;
     public HoofdScherm(DomeinController dc,Stage primaryStage){
         this.dc = dc;
         this.primaryStage = primaryStage;
@@ -50,7 +52,6 @@ public class HoofdScherm extends StackPane{
     private void buildGui(){
         ss = new StartScherm(dc,this);
         
-        //
         Path path = new Path();
         path.getElements().add(new MoveTo(0, 270));
         path.getElements().add(new LineTo(2260, 270));
@@ -79,7 +80,6 @@ public class HoofdScherm extends StackPane{
         sluiten.setViewport(new Rectangle2D(451, 0, 22, 31));
         sluiten.setOnMouseClicked((MouseEvent event) -> {
             Platform.exit();
-
         });
         sluiten.setOnMouseEntered((MouseEvent event) -> {
             this.setCursor(Cursor.HAND); //Change cursor to hand
@@ -101,6 +101,10 @@ public class HoofdScherm extends StackPane{
         sp = new SpelBord(dc,this);
         getChildren().add(sp);
         menubar.toFront();
+        sluiten.setOnMouseClicked((MouseEvent event) -> {
+                po = new PopupOpslaan(dc);
+                getChildren().add(po);         
+        });
     }
     public void startScherm(Pane pane){
         getChildren().remove(pane);
@@ -114,11 +118,33 @@ public class HoofdScherm extends StackPane{
          getChildren().remove(sp);
          getChildren().add(es);
          menubar.toFront();
+         sluiten.setOnMouseClicked((MouseEvent event) -> {
+            Platform.exit();
+        });
     }
     public void toonHighScores(){
         hs = new Highscores(dc, this);
         getChildren().remove(ss);
         getChildren().add(hs); 
+        menubar.toFront();
+    }
+
+    public void startOpgeslagenSpel(int spelId) {
+        getChildren().remove(ss);
+        dc.startOpgeslagenSpel(spelId);
+        sp = new SpelBord(dc,this);
+        getChildren().add(sp);
+        menubar.toFront();
+        sluiten.setOnMouseClicked((MouseEvent event) -> {
+            dc.slaSpelOp();
+            Platform.exit();
+        });
+    }
+
+    void opgeslagenSpellen() {
+        sh = new SpelHervatten(dc, this);
+        getChildren().remove(ss);
+        getChildren().add(sh); 
         menubar.toFront();
     }
 }

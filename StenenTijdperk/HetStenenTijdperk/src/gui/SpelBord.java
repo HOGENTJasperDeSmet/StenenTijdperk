@@ -43,13 +43,14 @@ public class SpelBord extends StackPane {
     private boolean[] gereedschap = {false, false, false};
     private int[] bezettePlaatsenVorigeBeurt;
     private int SpelerAanZetNummer, laatstGezettePlaats = -1, spelersDieActiesHebbenVoltooid = 0, spelersDieStamledenHebbenGevoed = 0, geworpenOgen;
-    private meldingPopup melding;
+    private MeldingPopup melding;
     private HoofdScherm hs;
 
     public SpelBord(DomeinController dc,HoofdScherm hs) {
         this.dc = dc;
         this.hs = hs;
         buildGui();
+        uiUpdate();
     }
 
     private void buildGui() {
@@ -741,7 +742,7 @@ public class SpelBord extends StackPane {
                         }
                     }
                 } catch (IllegalArgumentException iae) {
-                    melding = new meldingPopup(iae.getMessage(), this);
+                    melding = new MeldingPopup(iae.getMessage(), this);
                     this.getChildren().add(melding);
                     StackPane.setAlignment(melding, Pos.TOP_LEFT);
                 }
@@ -771,7 +772,7 @@ public class SpelBord extends StackPane {
         try {
             actieIsValid = dc.ActieIsValid(plaats);
         } catch (IllegalArgumentException iae) {
-            melding = new meldingPopup(iae.getMessage(), this);
+            melding = new MeldingPopup(iae.getMessage(), this);
             this.getChildren().add(melding);
             StackPane.setAlignment(melding, Pos.TOP_LEFT);
         }
@@ -804,7 +805,7 @@ public class SpelBord extends StackPane {
                                 SpelerAanZetNummer = dc.geefSpelerAanZetSpelerNummer();
                             }
                         }
-                        melding = new meldingPopup(iae.getMessage(), this);
+                        melding = new MeldingPopup(iae.getMessage(), this);
                         this.getChildren().add(melding);
                         StackPane.setAlignment(melding, Pos.TOP_LEFT);
                     }
@@ -825,7 +826,7 @@ public class SpelBord extends StackPane {
                                 SpelerAanZetNummer = dc.geefSpelerAanZetSpelerNummer();
                             }
                         }
-                        melding = new meldingPopup("Actie niet uigevoerd", this);
+                        melding = new MeldingPopup("Actie niet uigevoerd", this);
                         this.getChildren().add(melding);
                         StackPane.setAlignment(melding, Pos.TOP_LEFT);
                         uiUpdate();
@@ -854,7 +855,7 @@ public class SpelBord extends StackPane {
                                     SpelerAanZetNummer = dc.geefSpelerAanZetSpelerNummer();
                                 }
                             }
-                            melding = new meldingPopup(iae.getMessage(), this);
+                            melding = new MeldingPopup(iae.getMessage(), this);
                             this.getChildren().add(melding);
                             StackPane.setAlignment(melding, Pos.TOP_LEFT);
                         }
@@ -871,7 +872,7 @@ public class SpelBord extends StackPane {
                     }
                     if (dc.spelerAanZetHeeftOngebruiktGereedschap()) {
                         geworpen += String.format("en %d.%nVoor een totaal van %d.%nSelecteer de training die je wil gebruiken door er op te klikken", worp, geworpenOgen);
-                        melding = new meldingPopup(geworpen, this, true, true);
+                        melding = new MeldingPopup(geworpen, this, true, true);
                         this.getChildren().add(melding);
                         StackPane.setAlignment(melding, Pos.TOP_LEFT);
                         int[] gereedschap = dc.geefSpelerGereedschap(SpelerAanZetNummer - 1);
@@ -914,7 +915,7 @@ public class SpelBord extends StackPane {
                         }
                     } else {
                         geworpen += String.format("en %d.%nVoor een totaal van %d.", worp, geworpenOgen);
-                        melding = new meldingPopup(geworpen, this, true);
+                        melding = new MeldingPopup(geworpen, this, true);
                         uiLayout.setTop(melding);
                         this.getChildren().add(melding);
                         StackPane.setAlignment(melding, Pos.TOP_LEFT);
@@ -1034,7 +1035,7 @@ public class SpelBord extends StackPane {
     }
 
     public void actieFase() {
-        melding = new meldingPopup("Actiefase begonnen", this, true);
+        melding = new MeldingPopup("Actiefase begonnen", this, true);
         this.getChildren().add(melding);
         StackPane.setAlignment(melding, Pos.TOP_LEFT);
         bos.setOnMouseClicked((MouseEvent event) -> {

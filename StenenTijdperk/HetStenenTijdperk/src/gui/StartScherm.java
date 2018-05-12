@@ -141,6 +141,7 @@ public class StartScherm extends StackPane {
             //mediaPlayer.stop();
         });
         hervat.setOnMouseClicked((MouseEvent event) -> {
+            hs.opgeslagenSpellen();
 //            this.setCursor(Cursor.DEFAULT); //Change cursor to hand
 //            hervat.setViewport(new Rectangle2D(2, 168, 300, 46));
 //            Image test = new Image(getClass().getResourceAsStream("/assets/kamehameha.png"));

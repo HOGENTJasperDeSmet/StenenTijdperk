@@ -31,7 +31,6 @@ public class Highscores extends BorderPane{
     private ImageView highscoreText;
     private GridPane scoreView;
     private String scores[][];
-            //{{"jasper","99"},{"jasper","99"},{"jasper","99"},{"jasper","99"},{"jasper","99"},{"jasper","99"},{"jasper","99"},{"jasper","99"},{"jasper","99"},{"jasper","99"},{"jasper","99"},{"jasper","99"}};
     private Text waarde;
     private ScrollPane sp;
     public Highscores(DomeinController dc, HoofdScherm hs){

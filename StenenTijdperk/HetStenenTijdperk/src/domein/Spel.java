@@ -23,13 +23,21 @@ public class Spel {
     private Speler startSpeler;
     private boolean eindeSpel;
     private ScoreRepository sr;
+    private int spelId;
+    private String spelNaam;
     //Constructor
+    public Spel(ArrayList<Speler> spelers,Hutkaart[][] stapels,int spelerAanZet,int spelId,String spelnaam){
+        this.spelers = spelers;
+        this.stapels = stapels;
+        this.spelerAanZet = spelers.get(spelerAanZet - 1);
+        this.startSpeler = this.spelerAanZet;
+        this.spelId = spelId;
+        this.spelNaam = spelnaam;
+        StartOpgeslagenSpel();
+    }
     public Spel(String[] namen){
         int aantalSpelers = namen.length;
-        
-        
-        
-    //Spelers toevoegen
+        //Spelers toevoegen
         for(int i = 1;i <= aantalSpelers; i++){
             spelers.add(new Speler(i,namen[i - 1]));
         }
@@ -50,6 +58,28 @@ public class Spel {
         
         StartSpel();
     }
+    private void StartOpgeslagenSpel(){
+        //Grondstoffen toevoegen
+        grondstoffen[0] = new Grondstof(2, "Voedsel");
+        grondstoffen[1] = new Grondstof(3, "Hout");
+        grondstoffen[2] = new Grondstof(4, "Leem");
+        grondstoffen[3] = new Grondstof(5, "Steen");
+        grondstoffen[4] = new Grondstof(6, "Goud");
+        
+        acties.add(new Akker(1));
+        acties.add(new Hut(2));
+        acties.add(new Jacht(100));
+        acties.add(new Gereedschapsmaker(1));
+        acties.add(new Grondstofproductie(7, grondstoffen[1]));
+        acties.add(new Grondstofproductie(7, grondstoffen[2]));
+        acties.add(new Grondstofproductie(7, grondstoffen[3]));
+        acties.add(new Grondstofproductie(7, grondstoffen[4]));
+        acties.add(stapels[0][geefIndexActieveHutkaart(0)]);
+        acties.add(stapels[1][geefIndexActieveHutkaart(1)]);
+        acties.add(stapels[2][geefIndexActieveHutkaart(2)]);
+        acties.add(stapels[3][geefIndexActieveHutkaart(3)]);
+        eindeSpel = false;
+    }
     private void StartSpel(){
         //Grondstoffen toevoegen
         grondstoffen[0] = new Grondstof(2, "Voedsel");
@@ -67,6 +97,10 @@ public class Spel {
         acties.add(new Grondstofproductie(7, grondstoffen[3]));
         acties.add(new Grondstofproductie(7, grondstoffen[4]));
         
+        generateHutkaarten();
+        eindeSpel = false;
+    }
+    public void generateHutkaarten(){
         //genereren hutkaarten
         Random rand = new Random();
         ArrayList<Grondstof> grondstoffenList = new ArrayList<>();
@@ -86,7 +120,6 @@ public class Spel {
             stapel[0].Actief();
             acties.add(stapel[0]);
         }
-        eindeSpel = false;
     }
     private void bepaalSpelerAanZet(int aantalSpelers){
         Random rand = new Random();
@@ -110,6 +143,7 @@ public class Spel {
         }
         return uitvoer;
     }
+   
     public boolean alleStamledenGeplaatst(){
         for(Speler speler : spelers){
             if(!alleStamledenGeplaatstSpeler(speler)){
@@ -411,9 +445,28 @@ public class Spel {
     public void verwijderVanPlaats(int plaats) {
         spelerAanZet.verwijderStamledenVanPlaats(acties.get(plaats));
     }
-    
+    public void setId(int spelId){
+        this.spelId = spelId;
+    }
+    public void setNaam(String spelNaam){
+        this.spelNaam = spelNaam;
+    }
+    public ArrayList<Speler> getSpelers(){
+        return spelers;
+    }
+     public Hutkaart[][] getStapels(){
+        return stapels;
+    }
 
-
+    public int getSpelId() {
+        return spelId;
+    }
+    public String getSpelNaam(){
+        return spelNaam;
+    }
+    public boolean heeftId() {
+        return spelId != 0;
+    }
 
 
 }

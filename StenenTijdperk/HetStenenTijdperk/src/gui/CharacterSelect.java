@@ -29,8 +29,8 @@ public class CharacterSelect extends StackPane{
     private Image characterSelectSpriteSheet = new Image(getClass().getResourceAsStream("/assets/characterSelectSprites.png"));
     private VBox goku, krillin, jackieChun, chiaotzu;
     private GridPane gp = new GridPane();
-    private TextField naamKrillin,naamGoku,naamJackieChun, naamChiaotzu;
     private int aantalSpelers;
+    private TextField naamKrillin,naamGoku,naamJackieChun, naamChiaotzu;
     private boolean characters[] = new boolean[4], startFlag = false;
     private SpelBord spelbord;
     private DomeinController dc;

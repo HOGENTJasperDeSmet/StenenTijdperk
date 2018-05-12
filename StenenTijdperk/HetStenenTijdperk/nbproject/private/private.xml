@@ -17,17 +17,16 @@
             <file>file:/C:/Users/sande/OneDrive/Documenten/GitHub/StenenTijdperk/StenenTijdperk/HetStenenTijdperk/src/domein/Akker.java</file>
         </group>
         <group name="StenenTijdperk">
-            <file>file:/C:/Users/jasperdesmet/Documents/GitHub/StenenTijdperk/StenenTijdperk/HetStenenTijdperk/src/gui/CharacterSelect.java</file>
-            <file>file:/C:/Users/jasperdesmet/Documents/GitHub/StenenTijdperk/StenenTijdperk/HetStenenTijdperk/src/domein/Spel.java</file>
-            <file>file:/C:/Users/jasperdesmet/Documents/GitHub/StenenTijdperk/StenenTijdperk/HetStenenTijdperk/src/HetStenenTijdperkFX.java</file>
             <file>file:/C:/Users/jasperdesmet/Documents/GitHub/StenenTijdperk/StenenTijdperk/HetStenenTijdperk/src/cui/StenenTijdperkApplicatie.java</file>
-            <file>file:/C:/Users/jasperdesmet/Documents/GitHub/StenenTijdperk/StenenTijdperk/HetStenenTijdperk/src/gui/Popup.java</file>
-            <file>file:/C:/Users/jasperdesmet/Documents/GitHub/StenenTijdperk/StenenTijdperk/HetStenenTijdperk/src/gui/SpriteAnimation.java</file>
-            <file>file:/C:/Users/jasperdesmet/Documents/GitHub/StenenTijdperk/StenenTijdperk/HetStenenTijdperk/src/domein/Speler.java</file>
-            <file>file:/C:/Users/jasperdesmet/Documents/GitHub/StenenTijdperk/StenenTijdperk/HetStenenTijdperk/src/StartUp.java</file>
+            <file>file:/C:/Users/jasperdesmet/Documents/GitHub/StenenTijdperk/StenenTijdperk/HetStenenTijdperk/src/gui/Highscores.java</file>
+            <file>file:/C:/Users/jasperdesmet/Documents/GitHub/StenenTijdperk/StenenTijdperk/HetStenenTijdperk/src/gui/CharacterSelect.java</file>
+            <file>file:/C:/Users/jasperdesmet/Documents/GitHub/StenenTijdperk/StenenTijdperk/HetStenenTijdperk/src/gui/HoofdScherm.java</file>
+            <file>file:/C:/Users/jasperdesmet/Documents/GitHub/StenenTijdperk/StenenTijdperk/HetStenenTijdperk/src/domein/DomeinController.java</file>
+            <file>file:/C:/Users/jasperdesmet/Documents/GitHub/StenenTijdperk/StenenTijdperk/HetStenenTijdperk/src/domein/ScoreRepository.java</file>
+            <file>file:/C:/Users/jasperdesmet/Documents/GitHub/StenenTijdperk/StenenTijdperk/HetStenenTijdperk/src/gui/StartScherm.java</file>
+            <file>file:/C:/Users/jasperdesmet/Documents/GitHub/StenenTijdperk/StenenTijdperk/HetStenenTijdperk/src/domein/Spel.java</file>
             <file>file:/C:/Users/jasperdesmet/Documents/GitHub/StenenTijdperk/StenenTijdperk/HetStenenTijdperk/src/gui/EindScore.java</file>
-            <file>file:/C:/Users/jasperdesmet/Documents/GitHub/StenenTijdperk/StenenTijdperk/HetStenenTijdperk/src/gui/PopUpVoedsel.java</file>
-            <file>file:/C:/Users/jasperdesmet/Documents/GitHub/StenenTijdperk/StenenTijdperk/HetStenenTijdperk/src/gui/SpelBord.java</file>
+            <file>file:/C:/Users/jasperdesmet/Documents/GitHub/StenenTijdperk/StenenTijdperk/HetStenenTijdperk/src/persistentie/MapperConfig.java</file>
         </group>
     </open-files>
 </project-private>
