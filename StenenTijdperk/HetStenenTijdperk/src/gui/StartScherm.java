@@ -27,12 +27,10 @@ import javafx.util.Duration;
  */
 public class StartScherm extends StackPane {
 
-    private double xOffset = 0;
-    private double yOffset = 0;
     private ImageView korinTower = new ImageView(new Image(getClass().getResourceAsStream("/assets/korinTower.png")));
     private Image textSprites = new Image(getClass().getResourceAsStream("/assets/text.png"));
     private Image gokuHelicopter = new Image(getClass().getResourceAsStream("/assets/gokuHelicopter1.png"));
-    private ImageView sluiten, logo, start, hervat, score;
+    private ImageView logo, start, hervat, score;
     private DomeinController dc;
     private BorderPane bp = new BorderPane();
     private CharacterSelect cs; 
@@ -142,28 +140,6 @@ public class StartScherm extends StackPane {
         });
         hervat.setOnMouseClicked((MouseEvent event) -> {
             hs.opgeslagenSpellen();
-//            this.setCursor(Cursor.DEFAULT); //Change cursor to hand
-//            hervat.setViewport(new Rectangle2D(2, 168, 300, 46));
-//            Image test = new Image(getClass().getResourceAsStream("/assets/kamehameha.png"));
-//        ImageView testView = new ImageView(test);
-//        testView.setViewport(new Rectangle2D(1,0,960,80));
-//        final Animation testAnimation = new SpriteAnimation(
-//                testView,
-//                Duration.millis(500),
-//                18, 1,
-//                0, 0,
-//                960, 80
-//        );
-//        testAnimation.setCycleCount(1);
-//        testAnimation.play();
-//        TranslateTransition tt = new TranslateTransition(Duration.millis(100), testView);
-//        tt.setByX(4);
-//        tt.setFromY(-1);
-//        tt.setToY(1);
-//        tt.setCycleCount(Animation.INDEFINITE);
-//        tt.setAutoReverse(true);
-//        tt.playFromStart();
-//        this.getChildren().add(testView);
         });
            menu.getChildren().add(hervat);     
         //score knop
@@ -179,13 +155,10 @@ public class StartScherm extends StackPane {
             score.setViewport(new Rectangle2D(2, 216, 300, 46));
         });
         score.setOnMouseClicked((MouseEvent event) -> {
-            //EindScore daskl = new EindScore(dc,"Goku",hs);
-            //this.getChildren().add(daskl);
             hs.toonHighScores();
         });
         menu.getChildren().add(score);
 
-        //elementen toevoegen aan borderpane
         bp.setLeft(left);
         bp.setRight(right);
         bp.setMargin(right, new Insets(0, 80, 0, 0));

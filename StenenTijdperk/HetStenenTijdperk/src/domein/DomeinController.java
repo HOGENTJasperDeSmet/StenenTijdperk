@@ -185,7 +185,6 @@ public class DomeinController {
     }
 
     public String[][] geefInfoEindscore() {
-        //return new String[][] {{"Goku","krillin","100"},{"Krillin","goku","90"},{"Krillin","jackieChun","80"},{"Krillin","chiaotzu","80"}};
         return spel.geefInfoEindscore();
     }
     public boolean bestaandSpel(){
