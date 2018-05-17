@@ -108,6 +108,7 @@ public class HoofdScherm extends StackPane{
     }
     public void startScherm(Pane pane){
         getChildren().remove(pane);
+            
         getChildren().remove(ss);
         ss = new StartScherm(dc, this);
         getChildren().add(ss);
@@ -134,6 +135,7 @@ public class HoofdScherm extends StackPane{
         dc.startOpgeslagenSpel(spelId);
         sp = new SpelBord(dc,this);
         getChildren().add(sp);
+        getChildren().remove(sh);
         menubar.toFront();
         sluiten.setOnMouseClicked((MouseEvent event) -> {
             dc.slaSpelOp();

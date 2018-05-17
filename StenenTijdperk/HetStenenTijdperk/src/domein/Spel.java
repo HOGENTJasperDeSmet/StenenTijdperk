@@ -33,6 +33,7 @@ public class Spel {
         this.startSpeler = this.spelerAanZet;
         this.spelId = spelId;
         this.spelNaam = spelnaam;
+        this.sr = new ScoreRepository();
         StartOpgeslagenSpel();
     }
     public Spel(String[] namen){

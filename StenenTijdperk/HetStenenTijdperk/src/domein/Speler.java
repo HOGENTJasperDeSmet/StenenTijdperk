@@ -11,8 +11,7 @@ import java.util.ArrayList;
  *
  * @author jasperdesmet
  */
-public class Speler {
-
+public class Speler{
     private final int spelerNummer;
     private int voedselProductie,
             aantalVoedsel = 12,
